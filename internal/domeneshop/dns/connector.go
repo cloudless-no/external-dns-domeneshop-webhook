@@ -49,55 +49,40 @@ type apiClient interface {
 }
 
 // fetchRecords fetches all records for a given domainID.
-func fetchRecords(ctx context.Context, domainID string, dnsClient apiClient, batchSize int) ([]dsdns.Record, error) {
+func fetchRecords(ctx context.Context, domainID string, dnsClient apiClient) ([]dsdns.Record, error) {
 	metrics := metrics.GetOpenMetricsInstance()
-	records := []dsdns.Record{}
-	listOptions := &dsdns.RecordListOpts{DomainID: domainID}
-	for {
-		start := time.Now()
-		pagedRecords, resp, err := dnsClient.GetRecords(ctx, *listOptions)
-		if err != nil {
-			metrics.IncFailedApiCallsTotal(actGetRecords)
-			return nil, err
-		}
-		delay := time.Since(start)
-		metrics.IncSuccessfulApiCallsTotal(actGetRecords)
-		metrics.AddApiDelayHist(actGetRecords, delay.Milliseconds())
-		for _, r := range pagedRecords {
-			records = append(records, *r)
-		}
-
-		if resp == nil {
-			break
-		}
-
+	listOptions := dsdns.RecordListOpts{DomainID: domainID}
+	start := time.Now()
+	pagedRecords, _, err := dnsClient.GetRecords(ctx, listOptions)
+	if err != nil {
+		metrics.IncFailedApiCallsTotal(actGetRecords)
+		return nil, err
 	}
-
+	delay := time.Since(start)
+	metrics.IncSuccessfulApiCallsTotal(actGetRecords)
+	metrics.AddApiDelayHist(actGetRecords, delay.Milliseconds())
+	records := make([]dsdns.Record, 0, len(pagedRecords))
+	for _, r := range pagedRecords {
+		records = append(records, *r)
+	}
 	return records, nil
 }
 
 // fetchDomains fetches all the domains from the DNS client.
-func fetchDomains(ctx context.Context, dnsClient apiClient, batchSize int) ([]dsdns.Domain, error) {
+func fetchDomains(ctx context.Context, dnsClient apiClient) ([]dsdns.Domain, error) {
 	metrics := metrics.GetOpenMetricsInstance()
-	domains := []dsdns.Domain{}
-	for {
-		start := time.Now()
-		pagedDomains, resp, err := dnsClient.GetDomains(ctx)
-		if err != nil {
-			metrics.IncFailedApiCallsTotal(actGetDomains)
-			return nil, err
-		}
-		delay := time.Since(start)
-		metrics.IncSuccessfulApiCallsTotal(actGetDomains)
-		metrics.AddApiDelayHist(actGetDomains, delay.Milliseconds())
-		for _, z := range pagedDomains {
-			domains = append(domains, *z)
-		}
-
-		if resp == nil {
-			break
-		}
+	start := time.Now()
+	pagedDomains, _, err := dnsClient.GetDomains(ctx)
+	if err != nil {
+		metrics.IncFailedApiCallsTotal(actGetDomains)
+		return nil, err
 	}
-
+	delay := time.Since(start)
+	metrics.IncSuccessfulApiCallsTotal(actGetDomains)
+	metrics.AddApiDelayHist(actGetDomains, delay.Milliseconds())
+	domains := make([]dsdns.Domain, 0, len(pagedDomains))
+	for _, z := range pagedDomains {
+		domains = append(domains, *z)
+	}
 	return domains, nil
 }

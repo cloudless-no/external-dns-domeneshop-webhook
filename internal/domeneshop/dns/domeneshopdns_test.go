@@ -103,8 +103,15 @@ func filterRecordsByDomain(r recordsResponse, opts dsdns.RecordListOpts) []*dsdn
 func (m *mockClient) GetRecords(ctx context.Context, opts dsdns.RecordListOpts) ([]*dsdns.Record, *dsdns.Response, error) {
 	r := m.getRecords
 	m.state.GetRecordsCalled = true
+	if r.err != nil {
+		return nil, r.resp, r.err
+	}
 	var records []*dsdns.Record
-	records = r.records
+	if m.filterRecordsByDomain {
+		records = filterRecordsByDomain(r, opts)
+	} else {
+		records = r.records
+	}
 	return records, r.resp, r.err
 }
 
@@ -176,7 +183,7 @@ func Test_NewDomeneshopDNS(t *testing.T) {
 				clientPresent bool
 				err           error
 			}{
-				err: errors.New("nil API key provided"),
+				err: errors.New("nil Token provided"),
 			},
 		},
 		{

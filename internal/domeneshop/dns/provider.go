@@ -69,14 +69,14 @@ func NewDomeneshopProvider(config *domeneshop.Configuration) (*DomeneshopProvide
 
 	client, err := NewDomeneshopDNS(config.Token, config.Secret)
 	if err != nil {
-		return nil, fmt.Errorf("cannot instantiate legacy DNS provider: %w", err)
+		return nil, fmt.Errorf("cannot instantiate DNS provider: %w", err)
 	}
 
 	var msg string
 	if config.MaxFailCount > 0 {
-		msg = fmt.Sprintf("Configuring legacy DNS provider with maximum fail count of %d", config.MaxFailCount)
+		msg = fmt.Sprintf("Configuring DNS provider with maximum fail count of %d", config.MaxFailCount)
 	} else {
-		msg = "Configuring legacy DNS provider without maximum fail count"
+		msg = "Configuring DNS provider without maximum fail count"
 	}
 	log.Info(msg)
 
@@ -132,7 +132,7 @@ func (p *DomeneshopProvider) Domains(ctx context.Context) ([]dsdns.Domain, error
 	metrics := metrics.GetOpenMetricsInstance()
 	result := []dsdns.Domain{}
 
-	domains, err := fetchDomains(ctx, p.client, p.batchSize)
+	domains, err := fetchDomains(ctx, p.client)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +193,7 @@ func (p *DomeneshopProvider) Records(ctx context.Context) ([]*endpoint.Endpoint,
 
 	endpoints := []*endpoint.Endpoint{}
 	for _, domain := range domains {
-		records, err := fetchRecords(ctx, domain.ID, p.client, p.batchSize)
+		records, err := fetchRecords(ctx, domain.ID, p.client)
 		if err != nil {
 			return nil, err
 		}
@@ -251,7 +251,7 @@ func (p *DomeneshopProvider) getRecordsByDomainID(ctx context.Context) (map[stri
 
 	// Fetch records for each domain
 	for _, domain := range domains {
-		records, err := fetchRecords(ctx, domain.ID, p.client, p.batchSize)
+		records, err := fetchRecords(ctx, domain.ID, p.client)
 		if err != nil {
 			return nil, err
 		}

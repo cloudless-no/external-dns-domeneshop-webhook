@@ -52,7 +52,6 @@ func Test_NewDomeneshopProvider(t *testing.T) {
 			assert.NotNil(t, p.client)
 			assert.Equal(t, exp.provider.dryRun, p.dryRun)
 			assert.Equal(t, exp.provider.debug, p.debug)
-			assert.Equal(t, exp.provider.batchSize, p.batchSize)
 			actualJSON, _ := p.domainFilter.MarshalJSON()
 			expectedJSON, _ := exp.provider.domainFilter.MarshalJSON()
 			assert.Equal(t, actualJSON, expectedJSON)
@@ -67,14 +66,13 @@ func Test_NewDomeneshopProvider(t *testing.T) {
 				Secret:       "",
 				DryRun:       true,
 				Debug:        true,
-				BatchSize:    50,
 				DomainFilter: []string{"alpha.com, beta.com"},
 			},
 			expected: struct {
 				provider DomeneshopProvider
 				err      error
 			}{
-				err: errors.New("cannot instantiate legacy DNS provider: nil API key provided"),
+				err: errors.New("cannot instantiate DNS provider: nil Token provided"),
 			},
 		},
 		{
@@ -84,7 +82,6 @@ func Test_NewDomeneshopProvider(t *testing.T) {
 				Secret:       "TEST_API_KEY",
 				DryRun:       true,
 				Debug:        true,
-				BatchSize:    50,
 				DomainFilter: []string{"alpha.com, beta.com"},
 			},
 			expected: struct {
@@ -93,7 +90,6 @@ func Test_NewDomeneshopProvider(t *testing.T) {
 			}{
 				provider: DomeneshopProvider{
 					client:       nil, // This will be ignored
-					batchSize:    50,
 					debug:        true,
 					dryRun:       true,
 					domainFilter: endpoint.NewDomainFilter([]string{"alpha.com, beta.com"}),
@@ -148,7 +144,6 @@ func Test_Domains(t *testing.T) {
 						resp: &dsdns.Response{},
 					},
 				},
-				batchSize:         100,
 				debug:             true,
 				dryRun:            false,
 				domainFilter:      &endpoint.DomainFilter{},
@@ -193,7 +188,6 @@ func Test_Domains(t *testing.T) {
 						resp: &dsdns.Response{},
 					},
 				},
-				batchSize:    100,
 				debug:        true,
 				dryRun:       false,
 				domainFilter: endpoint.NewDomainFilter([]string{"alpha.com", "gamma.com"}),
@@ -236,7 +230,6 @@ func Test_Domains(t *testing.T) {
 						resp: &dsdns.Response{},
 					},
 				},
-				batchSize:         100,
 				debug:             true,
 				dryRun:            false,
 				domainFilter:      &endpoint.DomainFilter{},
@@ -277,7 +270,6 @@ func Test_Domains(t *testing.T) {
 						err: errors.New("test domains error"),
 					},
 				},
-				batchSize:    100,
 				debug:        true,
 				dryRun:       false,
 				domainFilter: &endpoint.DomainFilter{},
@@ -433,7 +425,6 @@ func Test_Records(t *testing.T) {
 					},
 					filterRecordsByDomain: true, // we want the records by domain
 				},
-				batchSize:    100,
 				debug:        true,
 				dryRun:       false,
 				domainFilter: &endpoint.DomainFilter{},
@@ -517,7 +508,6 @@ func Test_Records(t *testing.T) {
 					},
 					filterRecordsByDomain: true,
 				},
-				batchSize:    100,
 				debug:        true,
 				dryRun:       false,
 				domainFilter: &endpoint.DomainFilter{},
@@ -566,7 +556,6 @@ func Test_Records(t *testing.T) {
 						err: errors.New("test domains error"),
 					},
 				},
-				batchSize:    100,
 				debug:        true,
 				dryRun:       false,
 				domainFilter: &endpoint.DomainFilter{},
@@ -597,7 +586,6 @@ func Test_Records(t *testing.T) {
 						err: errors.New("test records error"),
 					},
 				},
-				batchSize:    100,
 				debug:        true,
 				dryRun:       false,
 				domainFilter: &endpoint.DomainFilter{},
@@ -712,7 +700,6 @@ func Test_getRecordsByDomainID(t *testing.T) {
 					},
 					filterRecordsByDomain: true, // we want the records by domain
 				},
-				batchSize:    100,
 				debug:        true,
 				dryRun:       false,
 				domainFilter: &endpoint.DomainFilter{},
@@ -796,7 +783,6 @@ func Test_getRecordsByDomainID(t *testing.T) {
 					},
 					filterRecordsByDomain: true,
 				},
-				batchSize:    100,
 				debug:        true,
 				dryRun:       false,
 				domainFilter: &endpoint.DomainFilter{},
@@ -865,7 +851,6 @@ func Test_getRecordsByDomainID(t *testing.T) {
 						err: errors.New("test domains error"),
 					},
 				},
-				batchSize:    100,
 				debug:        true,
 				dryRun:       false,
 				domainFilter: &endpoint.DomainFilter{},
@@ -896,7 +881,6 @@ func Test_getRecordsByDomainID(t *testing.T) {
 						err: errors.New("test records error"),
 					},
 				},
-				batchSize:    100,
 				debug:        true,
 				dryRun:       false,
 				domainFilter: &endpoint.DomainFilter{},
