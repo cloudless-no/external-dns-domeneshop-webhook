@@ -32,8 +32,8 @@ var testTTL = 7200
 // domainsResponse simulates a response that returns a list of domains.
 type domainsResponse struct {
 	domains []*dsdns.Domain
-	resp  *dsdns.Response
-	err   error
+	resp    *dsdns.Response
+	err     error
 }
 
 // recordsResponse simulates a response that returns a list of records.
@@ -58,7 +58,7 @@ type deleteResponse struct {
 
 // mockClientState keeps track of which methods were called.
 type mockClientState struct {
-	GetDomainsCalled     bool
+	GetDomainsCalled   bool
 	GetRecordsCalled   bool
 	CreateRecordCalled bool
 	UpdateRecordCalled bool
@@ -68,12 +68,12 @@ type mockClientState struct {
 // mockClient represents the mock client used to simulate calls to the DNS API.
 type mockClient struct {
 	getDomains            domainsResponse
-	getRecords          recordsResponse
-	createRecord        recordResponse
-	updateRecord        recordResponse
-	deleteRecord        deleteResponse
+	getRecords            recordsResponse
+	createRecord          recordResponse
+	updateRecord          recordResponse
+	deleteRecord          deleteResponse
 	filterRecordsByDomain bool
-	state               mockClientState
+	state                 mockClientState
 }
 
 // GetState returns the internal state
@@ -154,7 +154,7 @@ func Test_NewDomeneshopDNS(t *testing.T) {
 	type testCase struct {
 		name     string
 		token    string
-		secret    string
+		secret   string
 		expected struct {
 			clientPresent bool
 			err           error
@@ -176,8 +176,8 @@ func Test_NewDomeneshopDNS(t *testing.T) {
 
 	testCases := []testCase{
 		{
-			name:  "empty api key",
-			token: "",
+			name:   "empty api key",
+			token:  "",
 			secret: "",
 			expected: struct {
 				clientPresent bool
@@ -187,8 +187,8 @@ func Test_NewDomeneshopDNS(t *testing.T) {
 			},
 		},
 		{
-			name:  "some api key",
-			token: "TEST_TOKEN",
+			name:   "some api key",
+			token:  "TEST_TOKEN",
 			secret: "TEST_SECRET",
 			expected: struct {
 				clientPresent bool

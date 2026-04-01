@@ -318,10 +318,10 @@ func Test_processCreateActionsByDomain(t *testing.T) {
 	type testCase struct {
 		name  string
 		input struct {
-			domainID    string
-			domainName  string
-			records   []dsdns.Record
-			endpoints []*endpoint.Endpoint
+			domainID   string
+			domainName string
+			records    []dsdns.Record
+			endpoints  []*endpoint.Endpoint
 		}
 		expectedChanges domeneshopChanges
 	}
@@ -338,19 +338,19 @@ func Test_processCreateActionsByDomain(t *testing.T) {
 		{
 			name: "record already created",
 			input: struct {
-				domainID    string
-				domainName  string
-				records   []dsdns.Record
-				endpoints []*endpoint.Endpoint
+				domainID   string
+				domainName string
+				records    []dsdns.Record
+				endpoints  []*endpoint.Endpoint
 			}{
 				domainID:   "domainIDAlpha",
 				domainName: "alpha.com",
 				records: []dsdns.Record{
 					{
-						Type:  "A",
-						Host:  "www",
+						Type: "A",
+						Host: "www",
 						Data: "127.0.0.1",
-						Ttl:   7200,
+						Ttl:  7200,
 					},
 				},
 				endpoints: []*endpoint.Endpoint{
@@ -367,12 +367,12 @@ func Test_processCreateActionsByDomain(t *testing.T) {
 					{
 						DomainID: "domainIDAlpha",
 						Options: &dsdns.RecordCreateOpts{
-							Host:  "www",
-							Ttl:   &testTTL,
-							Type:  "A",
+							Host: "www",
+							Ttl:  &testTTL,
+							Type: "A",
 							Data: "127.0.0.1",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 						},
@@ -383,19 +383,19 @@ func Test_processCreateActionsByDomain(t *testing.T) {
 		{
 			name: "new record created",
 			input: struct {
-				domainID    string
-				domainName  string
-				records   []dsdns.Record
-				endpoints []*endpoint.Endpoint
+				domainID   string
+				domainName string
+				records    []dsdns.Record
+				endpoints  []*endpoint.Endpoint
 			}{
 				domainID:   "domainIDAlpha",
 				domainName: "alpha.com",
 				records: []dsdns.Record{
 					{
-						Type:  "A",
-						Host:  "ftp",
+						Type: "A",
+						Host: "ftp",
 						Data: "127.0.0.1",
-						Ttl:   7200,
+						Ttl:  7200,
 					},
 				},
 				endpoints: []*endpoint.Endpoint{
@@ -412,12 +412,12 @@ func Test_processCreateActionsByDomain(t *testing.T) {
 					{
 						DomainID: "domainIDAlpha",
 						Options: &dsdns.RecordCreateOpts{
-							Host:  "www",
-							Ttl:   &testTTL,
-							Type:  "A",
+							Host: "www",
+							Ttl:  &testTTL,
+							Type: "A",
 							Data: "127.0.0.1",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 						},
@@ -466,8 +466,8 @@ func Test_processCreateActions(t *testing.T) {
 				recordsByDomainID: map[string][]dsdns.Record{
 					"domainIDAlpha": {
 						dsdns.Record{
-							Type:  "A",
-							Host:  "www",
+							Type: "A",
+							Host: "www",
 							Data: "127.0.0.1",
 						},
 					},
@@ -486,8 +486,8 @@ func Test_processCreateActions(t *testing.T) {
 				recordsByDomainID: map[string][]dsdns.Record{
 					"domainIDAlpha": {
 						dsdns.Record{
-							Type:  "A",
-							Host:  "www",
+							Type: "A",
+							Host: "www",
 							Data: "127.0.0.1",
 						},
 					},
@@ -508,10 +508,10 @@ func Test_processCreateActions(t *testing.T) {
 				recordsByDomainID: map[string][]dsdns.Record{
 					"domainIDAlpha": {
 						dsdns.Record{
-							Type:  "A",
-							Host:  "www",
+							Type: "A",
+							Host: "www",
 							Data: "127.0.0.1",
-							Ttl:   7200,
+							Ttl:  7200,
 						},
 					},
 				},
@@ -531,12 +531,12 @@ func Test_processCreateActions(t *testing.T) {
 					{
 						DomainID: "domainIDAlpha",
 						Options: &dsdns.RecordCreateOpts{
-							Host:  "www",
-							Ttl:   &testTTL,
-							Type:  "A",
+							Host: "www",
+							Ttl:  &testTTL,
+							Type: "A",
 							Data: "127.0.0.1",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 						},
@@ -555,10 +555,10 @@ func Test_processCreateActions(t *testing.T) {
 				recordsByDomainID: map[string][]dsdns.Record{
 					"domainIDAlpha": {
 						dsdns.Record{
-							Type:  "A",
-							Host:  "ftp",
+							Type: "A",
+							Host: "ftp",
 							Data: "127.0.0.1",
-							Ttl:   7200,
+							Ttl:  7200,
 						},
 					},
 				},
@@ -578,12 +578,12 @@ func Test_processCreateActions(t *testing.T) {
 					{
 						DomainID: "domainIDAlpha",
 						Options: &dsdns.RecordCreateOpts{
-							Host:  "www",
-							Ttl:   &testTTL,
-							Type:  "A",
+							Host: "www",
+							Ttl:  &testTTL,
+							Type: "A",
 							Data: "127.0.0.1",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 						},
@@ -605,8 +605,8 @@ func Test_processUpdateEndpoint(t *testing.T) {
 	type testCase struct {
 		name  string
 		input struct {
-			domainID                  string
-			domainName                string
+			domainID                string
+			domainName              string
 			matchingRecordsByTarget map[string]dsdns.Record
 			ep                      *endpoint.Endpoint
 		}
@@ -625,8 +625,8 @@ func Test_processUpdateEndpoint(t *testing.T) {
 		{
 			name: "name changed",
 			input: struct {
-				domainID                  string
-				domainName                string
+				domainID                string
+				domainName              string
 				matchingRecordsByTarget map[string]dsdns.Record
 				ep                      *endpoint.Endpoint
 			}{
@@ -638,11 +638,11 @@ func Test_processUpdateEndpoint(t *testing.T) {
 						Type: dsdns.RecordTypeA,
 						Host: "www",
 						Domain: &dsdns.Domain{
-							ID:   "domainIDAlpha",
+							ID:     "domainIDAlpha",
 							Domain: "alpha.com",
 						},
 						Data: "1.1.1.1",
-						Ttl:   -1,
+						Ttl:  -1,
 					},
 				},
 				ep: &endpoint.Endpoint{
@@ -661,20 +661,20 @@ func Test_processUpdateEndpoint(t *testing.T) {
 							Type: dsdns.RecordTypeA,
 							Host: "www",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "1.1.1.1",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 						Options: &dsdns.RecordUpdateOpts{
 							Host: "ftp",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Ttl:   nil,
+							Ttl:  nil,
 							Data: "1.1.1.1",
 						},
 					},
@@ -684,8 +684,8 @@ func Test_processUpdateEndpoint(t *testing.T) {
 		{
 			name: "TTL changed",
 			input: struct {
-				domainID                  string
-				domainName                string
+				domainID                string
+				domainName              string
 				matchingRecordsByTarget map[string]dsdns.Record
 				ep                      *endpoint.Endpoint
 			}{
@@ -697,11 +697,11 @@ func Test_processUpdateEndpoint(t *testing.T) {
 						Type: dsdns.RecordTypeA,
 						Host: "www",
 						Domain: &dsdns.Domain{
-							ID:   "domainIDAlpha",
+							ID:     "domainIDAlpha",
 							Domain: "alpha.com",
 						},
 						Data: "1.1.1.1",
-						Ttl:   -1,
+						Ttl:  -1,
 					},
 				},
 				ep: &endpoint.Endpoint{
@@ -720,20 +720,20 @@ func Test_processUpdateEndpoint(t *testing.T) {
 							Type: dsdns.RecordTypeA,
 							Host: "www",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "1.1.1.1",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 						Options: &dsdns.RecordUpdateOpts{
 							Host: "ftp",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Ttl:   &testTTL,
+							Ttl:  &testTTL,
 							Data: "1.1.1.1",
 						},
 					},
@@ -743,8 +743,8 @@ func Test_processUpdateEndpoint(t *testing.T) {
 		{
 			name: "target changed",
 			input: struct {
-				domainID                  string
-				domainName                string
+				domainID                string
+				domainName              string
 				matchingRecordsByTarget map[string]dsdns.Record
 				ep                      *endpoint.Endpoint
 			}{
@@ -756,11 +756,11 @@ func Test_processUpdateEndpoint(t *testing.T) {
 						Host: "www",
 						Type: dsdns.RecordTypeA,
 						Domain: &dsdns.Domain{
-							ID:   "domainIDAlpha",
+							ID:     "domainIDAlpha",
 							Domain: "alpha.com",
 						},
 						Data: "1.1.1.1",
-						Ttl:   -1,
+						Ttl:  -1,
 					},
 				},
 				ep: &endpoint.Endpoint{
@@ -775,12 +775,12 @@ func Test_processUpdateEndpoint(t *testing.T) {
 					{
 						DomainID: "domainIDAlpha",
 						Options: &dsdns.RecordCreateOpts{
-							Host:  "www",
-							Ttl:   nil,
-							Type:  dsdns.RecordTypeA,
+							Host: "www",
+							Ttl:  nil,
+							Type: dsdns.RecordTypeA,
 							Data: "2.2.2.2",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 						},
@@ -802,7 +802,7 @@ func Test_cleanupRemainingTargets(t *testing.T) {
 	type testCase struct {
 		name  string
 		input struct {
-			domainID                  string
+			domainID                string
 			matchingRecordsByTarget map[string]dsdns.Record
 		}
 		expectedChanges domeneshopChanges
@@ -820,17 +820,17 @@ func Test_cleanupRemainingTargets(t *testing.T) {
 		{
 			name: "no deletes",
 			input: struct {
-				domainID                  string
+				domainID                string
 				matchingRecordsByTarget map[string]dsdns.Record
 			}{
-				domainID:                  "domainIDAlpha",
+				domainID:                "domainIDAlpha",
 				matchingRecordsByTarget: map[string]dsdns.Record{},
 			},
 		},
 		{
 			name: "delete",
 			input: struct {
-				domainID                  string
+				domainID                string
 				matchingRecordsByTarget map[string]dsdns.Record
 			}{
 				domainID: "domainIDAlpha",
@@ -840,11 +840,11 @@ func Test_cleanupRemainingTargets(t *testing.T) {
 						Host: "www",
 						Type: dsdns.RecordTypeA,
 						Domain: &dsdns.Domain{
-							ID:   "domainIDAlpha",
+							ID:     "domainIDAlpha",
 							Domain: "alpha.com",
 						},
 						Data: "1.1.1.1",
-						Ttl:   -1,
+						Ttl:  -1,
 					},
 				},
 			},
@@ -857,11 +857,11 @@ func Test_cleanupRemainingTargets(t *testing.T) {
 							Host: "www",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "1.1.1.1",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 				},
@@ -903,22 +903,22 @@ func Test_getMatchingRecordsByTarget(t *testing.T) {
 					Host: "www",
 					Type: dsdns.RecordTypeA,
 					Domain: &dsdns.Domain{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
 					Data: "1.1.1.1",
-					Ttl:   -1,
+					Ttl:  -1,
 				},
 				{
 					ID:   "id_2",
 					Host: "ftp",
 					Type: dsdns.RecordTypeA,
 					Domain: &dsdns.Domain{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
 					Data: "2.2.2.2",
-					Ttl:   -1,
+					Ttl:  -1,
 				},
 			},
 			expected: map[string]dsdns.Record{
@@ -927,22 +927,22 @@ func Test_getMatchingRecordsByTarget(t *testing.T) {
 					Host: "www",
 					Type: dsdns.RecordTypeA,
 					Domain: &dsdns.Domain{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
 					Data: "1.1.1.1",
-					Ttl:   -1,
+					Ttl:  -1,
 				},
 				"2.2.2.2": {
 					ID:   "id_2",
 					Host: "ftp",
 					Type: dsdns.RecordTypeA,
 					Domain: &dsdns.Domain{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
 					Data: "2.2.2.2",
-					Ttl:   -1,
+					Ttl:  -1,
 				},
 			},
 		},
@@ -960,10 +960,10 @@ func Test_processUpdateActionsByDomain(t *testing.T) {
 	type testCase struct {
 		name  string
 		input struct {
-			domainID    string
-			domainName  string
-			records   []dsdns.Record
-			endpoints []*endpoint.Endpoint
+			domainID   string
+			domainName string
+			records    []dsdns.Record
+			endpoints  []*endpoint.Endpoint
 		}
 		expectedChanges domeneshopChanges
 	}
@@ -980,10 +980,10 @@ func Test_processUpdateActionsByDomain(t *testing.T) {
 		{
 			name: "empty changeset",
 			input: struct {
-				domainID    string
-				domainName  string
-				records   []dsdns.Record
-				endpoints []*endpoint.Endpoint
+				domainID   string
+				domainName string
+				records    []dsdns.Record
+				endpoints  []*endpoint.Endpoint
 			}{
 				domainID:   "domainIDAlpha",
 				domainName: "alpha.com",
@@ -992,11 +992,11 @@ func Test_processUpdateActionsByDomain(t *testing.T) {
 						ID:   "id_1",
 						Host: "www",
 						Domain: &dsdns.Domain{
-							ID:   "domainIDAlpha",
+							ID:     "domainIDAlpha",
 							Domain: "alpha.com",
 						},
 						Data: "1.1.1.1",
-						Ttl:   -1,
+						Ttl:  -1,
 					},
 				},
 				endpoints: []*endpoint.Endpoint{},
@@ -1006,10 +1006,10 @@ func Test_processUpdateActionsByDomain(t *testing.T) {
 		{
 			name: "mixed changeset",
 			input: struct {
-				domainID    string
-				domainName  string
-				records   []dsdns.Record
-				endpoints []*endpoint.Endpoint
+				domainID   string
+				domainName string
+				records    []dsdns.Record
+				endpoints  []*endpoint.Endpoint
 			}{
 				domainID:   "domainIDAlpha",
 				domainName: "alpha.com",
@@ -1019,22 +1019,22 @@ func Test_processUpdateActionsByDomain(t *testing.T) {
 						Host: "www",
 						Type: dsdns.RecordTypeA,
 						Domain: &dsdns.Domain{
-							ID:   "domainIDAlpha",
+							ID:     "domainIDAlpha",
 							Domain: "alpha.com",
 						},
 						Data: "1.1.1.1",
-						Ttl:   -1,
+						Ttl:  -1,
 					},
 					{
 						ID:   "id_2",
 						Host: "ftp",
 						Type: dsdns.RecordTypeA,
 						Domain: &dsdns.Domain{
-							ID:   "domainIDAlpha",
+							ID:     "domainIDAlpha",
 							Domain: "alpha.com",
 						},
 						Data: "2.2.2.2",
-						Ttl:   -1,
+						Ttl:  -1,
 					},
 				},
 				endpoints: []*endpoint.Endpoint{
@@ -1057,12 +1057,12 @@ func Test_processUpdateActionsByDomain(t *testing.T) {
 					{
 						DomainID: "domainIDAlpha",
 						Options: &dsdns.RecordCreateOpts{
-							Host:  "www",
-							Ttl:   nil,
-							Type:  dsdns.RecordTypeA,
+							Host: "www",
+							Ttl:  nil,
+							Type: dsdns.RecordTypeA,
 							Data: "3.3.3.3",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 						},
@@ -1076,11 +1076,11 @@ func Test_processUpdateActionsByDomain(t *testing.T) {
 							Host: "www",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "1.1.1.1",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 				},
@@ -1092,21 +1092,21 @@ func Test_processUpdateActionsByDomain(t *testing.T) {
 							Host: "ftp",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "2.2.2.2",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 						Options: &dsdns.RecordUpdateOpts{
 							Host: "ftp",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Type:  dsdns.RecordTypeA,
+							Type: dsdns.RecordTypeA,
 							Data: "2.2.2.2",
-							Ttl:   &testTTL,
+							Ttl:  &testTTL,
 						},
 					},
 				},
@@ -1159,11 +1159,11 @@ func Test_processUpdateActions(t *testing.T) {
 							ID:   "id_1",
 							Host: "www",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "1.1.1.1",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 					"domainIDBeta": {
@@ -1171,11 +1171,11 @@ func Test_processUpdateActions(t *testing.T) {
 							ID:   "id_2",
 							Host: "ftp",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 							Data: "2.2.2.2",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 				},
@@ -1200,11 +1200,11 @@ func Test_processUpdateActions(t *testing.T) {
 							ID:   "id_1",
 							Host: "www",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "1.1.1.1",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 					"domainIDBeta": {
@@ -1212,11 +1212,11 @@ func Test_processUpdateActions(t *testing.T) {
 							ID:   "id_2",
 							Host: "ftp",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 							Data: "2.2.2.2",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 				},
@@ -1244,11 +1244,11 @@ func Test_processUpdateActions(t *testing.T) {
 							Host: "www",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "1.1.1.1",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 					"domainIDBeta": {
@@ -1257,11 +1257,11 @@ func Test_processUpdateActions(t *testing.T) {
 							Host: "ftp",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 							Data: "2.2.2.2",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 				},
@@ -1289,11 +1289,11 @@ func Test_processUpdateActions(t *testing.T) {
 					{
 						DomainID: "domainIDAlpha",
 						Options: &dsdns.RecordCreateOpts{
-							Host:  "www",
-							Type:  dsdns.RecordTypeA,
+							Host: "www",
+							Type: dsdns.RecordTypeA,
 							Data: "3.3.3.3",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Ttl: nil,
@@ -1308,11 +1308,11 @@ func Test_processUpdateActions(t *testing.T) {
 							Host: "www",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "1.1.1.1",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 				},
@@ -1324,21 +1324,21 @@ func Test_processUpdateActions(t *testing.T) {
 							Host: "ftp",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 							Data: "2.2.2.2",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 						Options: &dsdns.RecordUpdateOpts{
 							Host: "ftp",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 							Data: "2.2.2.2",
-							Ttl:   &testTTL,
+							Ttl:  &testTTL,
 						},
 					},
 				},
@@ -1381,11 +1381,11 @@ func Test_targetsMatch(t *testing.T) {
 					Host: "www",
 					Type: dsdns.RecordTypeA,
 					Domain: &dsdns.Domain{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
 					Data: "1.1.1.1",
-					Ttl:   -1,
+					Ttl:  -1,
 				},
 				ep: &endpoint.Endpoint{
 					DNSName:    "www.alpha.com",
@@ -1407,11 +1407,11 @@ func Test_targetsMatch(t *testing.T) {
 					Host: "www",
 					Type: dsdns.RecordTypeA,
 					Domain: &dsdns.Domain{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
 					Data: "1.1.1.1",
-					Ttl:   -1,
+					Ttl:  -1,
 				},
 				ep: &endpoint.Endpoint{
 					DNSName:    "www.alpha.com",
@@ -1433,11 +1433,11 @@ func Test_targetsMatch(t *testing.T) {
 					Host: "ftp",
 					Type: dsdns.RecordTypeCNAME,
 					Domain: &dsdns.Domain{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
 					Data: "www.beta.com.",
-					Ttl:   -1,
+					Ttl:  -1,
 				},
 				ep: &endpoint.Endpoint{
 					DNSName:    "ftp.alpha.com",
@@ -1462,7 +1462,7 @@ func Test_processDeleteActionsByEndpoint(t *testing.T) {
 	type testCase struct {
 		name  string
 		input struct {
-			domainID          string
+			domainID        string
 			matchingRecords []dsdns.Record
 			ep              *endpoint.Endpoint
 		}
@@ -1481,11 +1481,11 @@ func Test_processDeleteActionsByEndpoint(t *testing.T) {
 		{
 			name: "no matching records",
 			input: struct {
-				domainID          string
+				domainID        string
 				matchingRecords []dsdns.Record
 				ep              *endpoint.Endpoint
 			}{
-				domainID:          "domainIDAlpha",
+				domainID:        "domainIDAlpha",
 				matchingRecords: []dsdns.Record{},
 				ep: &endpoint.Endpoint{
 					DNSName:    "ccx.alpha.com",
@@ -1499,7 +1499,7 @@ func Test_processDeleteActionsByEndpoint(t *testing.T) {
 		{
 			name: "one matching record",
 			input: struct {
-				domainID          string
+				domainID        string
 				matchingRecords []dsdns.Record
 				ep              *endpoint.Endpoint
 			}{
@@ -1510,22 +1510,22 @@ func Test_processDeleteActionsByEndpoint(t *testing.T) {
 						Host: "www",
 						Type: dsdns.RecordTypeA,
 						Domain: &dsdns.Domain{
-							ID:   "domainIDAlpha",
+							ID:     "domainIDAlpha",
 							Domain: "alpha.com",
 						},
 						Data: "1.1.1.1",
-						Ttl:   -1,
+						Ttl:  -1,
 					},
 					{
 						ID:   "id_2",
 						Host: "www",
 						Type: dsdns.RecordTypeA,
 						Domain: &dsdns.Domain{
-							ID:   "domainIDAlpha",
+							ID:     "domainIDAlpha",
 							Domain: "alpha.com",
 						},
 						Data: "2.2.2.2",
-						Ttl:   -1,
+						Ttl:  -1,
 					},
 				},
 				ep: &endpoint.Endpoint{
@@ -1544,11 +1544,11 @@ func Test_processDeleteActionsByEndpoint(t *testing.T) {
 							Host: "www",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "1.1.1.1",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 				},
@@ -1557,7 +1557,7 @@ func Test_processDeleteActionsByEndpoint(t *testing.T) {
 		{
 			name: "cname special matching",
 			input: struct {
-				domainID          string
+				domainID        string
 				matchingRecords []dsdns.Record
 				ep              *endpoint.Endpoint
 			}{
@@ -1568,22 +1568,22 @@ func Test_processDeleteActionsByEndpoint(t *testing.T) {
 						Host: "www",
 						Type: dsdns.RecordTypeA,
 						Domain: &dsdns.Domain{
-							ID:   "domainIDAlpha",
+							ID:     "domainIDAlpha",
 							Domain: "alpha.com",
 						},
 						Data: "1.1.1.1",
-						Ttl:   -1,
+						Ttl:  -1,
 					},
 					{
 						ID:   "id_2",
 						Host: "ftp",
 						Type: dsdns.RecordTypeCNAME,
 						Domain: &dsdns.Domain{
-							ID:   "domainIDAlpha",
+							ID:     "domainIDAlpha",
 							Domain: "alpha.com",
 						},
 						Data: "www.beta.com.",
-						Ttl:   -1,
+						Ttl:  -1,
 					},
 				},
 				ep: &endpoint.Endpoint{
@@ -1602,11 +1602,11 @@ func Test_processDeleteActionsByEndpoint(t *testing.T) {
 							Host: "ftp",
 							Type: dsdns.RecordTypeCNAME,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "www.beta.com.",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 				},
@@ -1659,11 +1659,11 @@ func Test_processDeleteActions(t *testing.T) {
 							ID:   "id_1",
 							Host: "www",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "1.1.1.1",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 					"domainIDBeta": {
@@ -1671,11 +1671,11 @@ func Test_processDeleteActions(t *testing.T) {
 							ID:   "id_2",
 							Host: "ftp",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 							Data: "2.2.2.2",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 				},
@@ -1710,11 +1710,11 @@ func Test_processDeleteActions(t *testing.T) {
 							Host: "www",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "1.1.1.1",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 					"domainIDBeta": {
@@ -1723,22 +1723,22 @@ func Test_processDeleteActions(t *testing.T) {
 							Host: "ftp",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 							Data: "2.2.2.2",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 						dsdns.Record{
 							ID:   "id_3",
 							Host: "ftp",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 							Data: "4.4.4.4",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 				},
@@ -1770,11 +1770,11 @@ func Test_processDeleteActions(t *testing.T) {
 							Host: "www",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "1.1.1.1",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 					{
@@ -1784,11 +1784,11 @@ func Test_processDeleteActions(t *testing.T) {
 							Host: "ftp",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 							Data: "2.2.2.2",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 					{
@@ -1798,11 +1798,11 @@ func Test_processDeleteActions(t *testing.T) {
 							Host: "ftp",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 							Data: "4.4.4.4",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 				},

@@ -31,7 +31,7 @@ import (
 func Test_fromDomeneshopHostname(t *testing.T) {
 	type testCase struct {
 		name     string
-		domain     string
+		domain   string
 		host     string
 		expected string
 	}
@@ -40,40 +40,40 @@ func Test_fromDomeneshopHostname(t *testing.T) {
 		// Apex record
 		{
 			name:     "apex record @",
-			domain:     "alpha.com",
+			domain:   "alpha.com",
 			host:     "@",
 			expected: "alpha.com",
 		},
 		// Local subdomains (no dots)
 		{
 			name:     "local subdomain",
-			domain:     "alpha.com",
+			domain:   "alpha.com",
 			host:     "mail",
 			expected: "mail.alpha.com",
 		},
 		{
 			name:     "local subdomain www",
-			domain:     "alpha.com",
+			domain:   "alpha.com",
 			host:     "www",
 			expected: "www.alpha.com",
 		},
 		// External hostnames with trailing dot (Domeneshop returns these for external)
 		{
 			name:     "external hostname with trailing dot",
-			domain:     "alpha.com",
+			domain:   "alpha.com",
 			host:     "mail.beta.com.",
 			expected: "mail.beta.com",
 		},
 		{
 			name:     "external hostname deeper with trailing dot",
-			domain:     "alpha.com",
+			domain:   "alpha.com",
 			host:     "a.b.c.beta.com.",
 			expected: "a.b.c.beta.com",
 		},
 		// Deep local subdomains (dots but no trailing dot)
 		{
 			name:     "deep local subdomain",
-			domain:     "alpha.com",
+			domain:   "alpha.com",
 			host:     "a.b.c",
 			expected: "a.b.c.alpha.com",
 		},
@@ -321,12 +321,12 @@ func Test_createEndpointFromRecord(t *testing.T) {
 		{
 			name: "top domain",
 			input: dsdns.Record{
-				ID:    "id_0",
-				Host:  "@",
-				Type:  dsdns.RecordTypeCNAME,
+				ID:   "id_0",
+				Host: "@",
+				Type: dsdns.RecordTypeCNAME,
 				Data: "www.alpha.com.",
 				Domain: &dsdns.Domain{
-					ID:   "domainIDBeta",
+					ID:     "domainIDBeta",
 					Domain: "beta.com",
 				},
 				Ttl: 7200,
@@ -342,12 +342,12 @@ func Test_createEndpointFromRecord(t *testing.T) {
 		{
 			name: "a record",
 			input: dsdns.Record{
-				ID:    "id_1",
-				Host:  "ftp",
-				Type:  dsdns.RecordTypeA,
+				ID:   "id_1",
+				Host: "ftp",
+				Type: dsdns.RecordTypeA,
 				Data: "10.0.0.1",
 				Domain: &dsdns.Domain{
-					ID:   "domainIDBeta",
+					ID:     "domainIDBeta",
 					Domain: "beta.com",
 				},
 				Ttl: 7200,
@@ -363,12 +363,12 @@ func Test_createEndpointFromRecord(t *testing.T) {
 		{
 			name: "cname record",
 			input: dsdns.Record{
-				ID:    "id_1",
-				Host:  "ftp",
-				Type:  dsdns.RecordTypeCNAME,
+				ID:   "id_1",
+				Host: "ftp",
+				Type: dsdns.RecordTypeCNAME,
 				Data: "www.alpha.com.",
 				Domain: &dsdns.Domain{
-					ID:   "domainIDBeta",
+					ID:     "domainIDBeta",
 					Domain: "beta.com",
 				},
 				Ttl: 7200,
@@ -384,12 +384,12 @@ func Test_createEndpointFromRecord(t *testing.T) {
 		{
 			name: "mx record",
 			input: dsdns.Record{
-				ID:    "id_1",
-				Host:  "@",
-				Type:  dsdns.RecordTypeMX,
+				ID:   "id_1",
+				Host: "@",
+				Type: dsdns.RecordTypeMX,
 				Data: "10 mail.alpha.com.",
 				Domain: &dsdns.Domain{
-					ID:   "domainIDBeta",
+					ID:     "domainIDBeta",
 					Domain: "beta.com",
 				},
 				Ttl: 7200,
@@ -417,7 +417,7 @@ func Test_endpointsByDomainID(t *testing.T) {
 		name  string
 		input struct {
 			domainIDNameMapper provider.ZoneIDName
-			endpoints        []*endpoint.Endpoint
+			endpoints          []*endpoint.Endpoint
 		}
 		expected map[string][]*endpoint.Endpoint
 	}
@@ -432,7 +432,7 @@ func Test_endpointsByDomainID(t *testing.T) {
 			name: "empty input",
 			input: struct {
 				domainIDNameMapper provider.ZoneIDName
-				endpoints        []*endpoint.Endpoint
+				endpoints          []*endpoint.Endpoint
 			}{
 				domainIDNameMapper: provider.ZoneIDName{
 					"domainIDAlpha": "alpha.com",
@@ -446,7 +446,7 @@ func Test_endpointsByDomainID(t *testing.T) {
 			name: "some input",
 			input: struct {
 				domainIDNameMapper provider.ZoneIDName
-				endpoints        []*endpoint.Endpoint
+				endpoints          []*endpoint.Endpoint
 			}{
 				domainIDNameMapper: provider.ZoneIDName{
 					"domainIDAlpha": "alpha.com",
@@ -504,9 +504,9 @@ func Test_getMatchingDomainRecords(t *testing.T) {
 	type testCase struct {
 		name  string
 		input struct {
-			records  []dsdns.Record
+			records    []dsdns.Record
 			domainName string
-			ep       *endpoint.Endpoint
+			ep         *endpoint.Endpoint
 		}
 		expected []dsdns.Record
 	}
@@ -515,19 +515,19 @@ func Test_getMatchingDomainRecords(t *testing.T) {
 		{
 			name: "no matches",
 			input: struct {
-				records  []dsdns.Record
+				records    []dsdns.Record
 				domainName string
-				ep       *endpoint.Endpoint
+				ep         *endpoint.Endpoint
 			}{
 				records: []dsdns.Record{
 					{
 						ID: "id1",
 						Domain: &dsdns.Domain{
-							ID:   "domainIDAlpha",
+							ID:     "domainIDAlpha",
 							Domain: "alpha.com",
 						},
-						Host:  "www",
-						Type:  dsdns.RecordTypeA,
+						Host: "www",
+						Type: dsdns.RecordTypeA,
 						Data: "1.1.1.1",
 					},
 				},
@@ -543,19 +543,19 @@ func Test_getMatchingDomainRecords(t *testing.T) {
 		{
 			name: "matches",
 			input: struct {
-				records  []dsdns.Record
+				records    []dsdns.Record
 				domainName string
-				ep       *endpoint.Endpoint
+				ep         *endpoint.Endpoint
 			}{
 				records: []dsdns.Record{
 					{
 						ID: "id1",
 						Domain: &dsdns.Domain{
-							ID:   "domainIDAlpha",
+							ID:     "domainIDAlpha",
 							Domain: "alpha.com",
 						},
-						Host:  "www",
-						Type:  dsdns.RecordTypeA,
+						Host: "www",
+						Type: dsdns.RecordTypeA,
 						Data: "1.1.1.1",
 					},
 				},
@@ -570,11 +570,11 @@ func Test_getMatchingDomainRecords(t *testing.T) {
 				{
 					ID: "id1",
 					Domain: &dsdns.Domain{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
-					Host:  "www",
-					Type:  dsdns.RecordTypeA,
+					Host: "www",
+					Type: dsdns.RecordTypeA,
 					Data: "1.1.1.1",
 				},
 			},
@@ -582,19 +582,19 @@ func Test_getMatchingDomainRecords(t *testing.T) {
 		{
 			name: "matches with warning",
 			input: struct {
-				records  []dsdns.Record
+				records    []dsdns.Record
 				domainName string
-				ep       *endpoint.Endpoint
+				ep         *endpoint.Endpoint
 			}{
 				records: []dsdns.Record{
 					{
 						ID: "id1",
 						Domain: &dsdns.Domain{
-							ID:   "domainIDAlpha",
+							ID:     "domainIDAlpha",
 							Domain: "alpha.com",
 						},
-						Host:  "www",
-						Type:  dsdns.RecordTypeA,
+						Host: "www",
+						Type: dsdns.RecordTypeA,
 						Data: "1.1.1.1",
 					},
 				},
@@ -615,11 +615,11 @@ func Test_getMatchingDomainRecords(t *testing.T) {
 				{
 					ID: "id1",
 					Domain: &dsdns.Domain{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
-					Host:  "www",
-					Type:  dsdns.RecordTypeA,
+					Host: "www",
+					Type: dsdns.RecordTypeA,
 					Data: "1.1.1.1",
 				},
 			},

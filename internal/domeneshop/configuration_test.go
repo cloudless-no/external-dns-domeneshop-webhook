@@ -112,7 +112,7 @@ func Test_IsSupportedRecordType(t *testing.T) {
 		{recordType: "AAAA", expected: true},
 		{recordType: "CNAME", expected: true},
 		{recordType: "TXT", expected: true},
-		{recordType: "MX", expected: true}, // MX is supported by this webhook
+		{recordType: "MX", expected: true},  // MX is supported by this webhook
 		{recordType: "NS", expected: false}, // NS is not supported by this webhook
 		{recordType: "SRV", expected: true},
 		{recordType: "PTR", expected: false},

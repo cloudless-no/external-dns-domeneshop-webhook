@@ -27,7 +27,7 @@ import (
 
 const (
 	testAction = "test_action"
-	testDomain   = "alpha.com"
+	testDomain = "alpha.com"
 )
 
 func Test_GetOpenMetricsInstance(t *testing.T) {

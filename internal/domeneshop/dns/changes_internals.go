@@ -24,15 +24,15 @@ import (
 
 // domeneshopChangeCreate stores the information for a create request.
 type domeneshopChangeCreate struct {
-	DomainID  string
-	Options *dsdns.RecordCreateOpts
+	DomainID string
+	Options  *dsdns.RecordCreateOpts
 }
 
 // GetLogFields returns the log fields for this object.
 func (cc domeneshopChangeCreate) GetLogFields() log.Fields {
 	return log.Fields{
 		"domain":     cc.Options.Domain.Domain,
-		"domainID":     cc.DomainID,
+		"domainID":   cc.DomainID,
 		"dnsName":    cc.Options.Host,
 		"recordType": string(cc.Options.Type),
 		"value":      cc.Options.Data,
@@ -42,9 +42,9 @@ func (cc domeneshopChangeCreate) GetLogFields() log.Fields {
 
 // domeneshopChangeUpdate stores the information for an update request.
 type domeneshopChangeUpdate struct {
-	DomainID  string
-	Record  dsdns.Record
-	Options *dsdns.RecordUpdateOpts
+	DomainID string
+	Record   dsdns.Record
+	Options  *dsdns.RecordUpdateOpts
 }
 
 // GetLogFields returns the log fields for this object. An asterisk indicate
@@ -52,7 +52,7 @@ type domeneshopChangeUpdate struct {
 func (cu domeneshopChangeUpdate) GetLogFields() log.Fields {
 	return log.Fields{
 		"domain":      cu.Record.Domain.Domain,
-		"domainID":      cu.DomainID,
+		"domainID":    cu.DomainID,
 		"recordID":    cu.Record.ID,
 		"*dnsName":    cu.Options.Host,
 		"*recordType": string(cu.Options.Type),
@@ -64,14 +64,14 @@ func (cu domeneshopChangeUpdate) GetLogFields() log.Fields {
 // domeneshopChangeDelete stores the information for a delete request.
 type domeneshopChangeDelete struct {
 	DomainID string
-	Record dsdns.Record
+	Record   dsdns.Record
 }
 
 // GetLogFields returns the log fields for this object.
 func (cd domeneshopChangeDelete) GetLogFields() log.Fields {
 	return log.Fields{
 		"domain":     cd.Record.Domain.Domain,
-		"domainID":     cd.DomainID,
+		"domainID":   cd.DomainID,
 		"dnsName":    cd.Record.Host,
 		"recordType": string(cd.Record.Type),
 		"value":      cd.Record.Data,

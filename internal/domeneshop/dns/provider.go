@@ -44,14 +44,14 @@ var logFatalf = log.Fatalf
 // Domeneshop.
 type DomeneshopProvider struct {
 	provider.BaseProvider
-	client            apiClient
-	batchSize         int
-	debug             bool
-	dryRun            bool
+	client              apiClient
+	batchSize           int
+	debug               bool
+	dryRun              bool
 	domainIDNameMapper  provider.ZoneIDName
-	domainFilter      *endpoint.DomainFilter
-	maxFailCount      int
-	failCount         int
+	domainFilter        *endpoint.DomainFilter
+	maxFailCount        int
+	failCount           int
 	domainCacheDuration time.Duration
 	domainCacheUpdate   time.Time
 	domainCache         []dsdns.Domain
@@ -90,12 +90,12 @@ func NewDomeneshopProvider(config *domeneshop.Configuration) (*DomeneshopProvide
 	}
 
 	return &DomeneshopProvider{
-		client:            client,
-		batchSize:         config.BatchSize,
-		debug:             config.Debug,
-		dryRun:            config.DryRun,
-		domainFilter:      domeneshop.GetDomainFilter(*config),
-		maxFailCount:      config.MaxFailCount,
+		client:              client,
+		batchSize:           config.BatchSize,
+		debug:               config.Debug,
+		dryRun:              config.DryRun,
+		domainFilter:        domeneshop.GetDomainFilter(*config),
+		maxFailCount:        config.MaxFailCount,
 		domainCacheDuration: zcTTL,
 		domainCacheUpdate:   zcUpdate,
 	}, nil

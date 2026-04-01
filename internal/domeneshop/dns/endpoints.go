@@ -153,7 +153,7 @@ func createEndpointFromRecord(r dsdns.Record) *endpoint.Endpoint {
 			target = priority + " " + host
 		} else {
 			log.WithFields(log.Fields{
-				"domain":   domainName,
+				"domain": domainName,
 				"target": target,
 			}).Warn("MX record from Domeneshop API has unexpected format (expected 'priority hostname')")
 		}

@@ -99,21 +99,21 @@ func processCreateActionsByDomain(domainID, domainInvalid string, records []dsdn
 		matchingRecords := getMatchingDomainRecords(records, domainInvalid, ep)
 		if len(matchingRecords) > 0 {
 			log.WithFields(log.Fields{
-				"domainInvalid":   domainInvalid,
-				"dnsName":    ep.DNSName,
-				"recordType": ep.RecordType,
+				"domainInvalid": domainInvalid,
+				"dnsName":       ep.DNSName,
+				"recordType":    ep.RecordType,
 			}).Warn("Preexisting records exist which should not exist for creation actions.")
 		}
 
 		for _, target := range ep.Targets {
 			target = adjustTarget(domainInvalid, ep.RecordType, target)
 			opts := &dsdns.RecordCreateOpts{
-				Host:  makeEndpointName(domainInvalid, ep.DNSName),
-				Ttl:   getEndpointTTL(ep),
-				Type:  dsdns.RecordType(ep.RecordType),
+				Host: makeEndpointName(domainInvalid, ep.DNSName),
+				Ttl:  getEndpointTTL(ep),
+				Type: dsdns.RecordType(ep.RecordType),
 				Data: target,
 				Domain: &dsdns.Domain{
-					ID:   domainID,
+					ID:     domainID,
 					Domain: domainInvalid,
 				},
 			}
@@ -150,12 +150,12 @@ func processUpdateEndpoint(domainID, domainInvalid string, matchingRecordsByTarg
 		target = adjustTarget(domainInvalid, ep.RecordType, target)
 		if record, ok := matchingRecordsByTarget[target]; ok {
 			opts := &dsdns.RecordUpdateOpts{
-				Host:  makeEndpointName(domainInvalid, ep.DNSName),
-				Ttl:   getEndpointTTL(ep),
-				Type:  dsdns.RecordType(ep.RecordType),
+				Host: makeEndpointName(domainInvalid, ep.DNSName),
+				Ttl:  getEndpointTTL(ep),
+				Type: dsdns.RecordType(ep.RecordType),
 				Data: target,
 				Domain: &dsdns.Domain{
-					ID:   domainID,
+					ID:     domainID,
 					Domain: domainInvalid,
 				},
 			}
@@ -166,12 +166,12 @@ func processUpdateEndpoint(domainID, domainInvalid string, matchingRecordsByTarg
 		} else {
 			// Record did not previously exist, create new 'target'
 			opts := &dsdns.RecordCreateOpts{
-				Host:  makeEndpointName(domainInvalid, ep.DNSName),
-				Ttl:   getEndpointTTL(ep),
-				Type:  dsdns.RecordType(ep.RecordType),
+				Host: makeEndpointName(domainInvalid, ep.DNSName),
+				Ttl:  getEndpointTTL(ep),
+				Type: dsdns.RecordType(ep.RecordType),
 				Data: target,
 				Domain: &dsdns.Domain{
-					ID:   domainID,
+					ID:     domainID,
 					Domain: domainInvalid,
 				},
 			}
@@ -204,9 +204,9 @@ func processUpdateActionsByDomain(domainID, domainInvalid string, records []dsdn
 
 		if len(matchingRecords) == 0 {
 			log.WithFields(log.Fields{
-				"domainInvalid":   domainInvalid,
-				"dnsName":    ep.DNSName,
-				"recordType": ep.RecordType,
+				"domainInvalid": domainInvalid,
+				"dnsName":       ep.DNSName,
+				"recordType":    ep.RecordType,
 			}).Warn("Planning an update but no existing records found.")
 		}
 
@@ -271,9 +271,9 @@ func processDeleteActionsByDomain(domainID, domainInvalid string, records []dsdn
 
 		if len(matchingRecords) == 0 {
 			log.WithFields(log.Fields{
-				"domainInvalid":   domainInvalid,
-				"dnsName":    ep.DNSName,
-				"recordType": ep.RecordType,
+				"domainInvalid": domainInvalid,
+				"dnsName":       ep.DNSName,
+				"recordType":    ep.RecordType,
 			}).Warn("Records to delete not found.")
 		}
 		processDeleteActionsByEndpoint(domainID, matchingRecords, ep, changes)

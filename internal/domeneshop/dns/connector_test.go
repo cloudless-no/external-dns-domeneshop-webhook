@@ -20,8 +20,8 @@ package domeneshopdns
 import (
 	"context"
 	"errors"
-	"testing"
 	"log"
+	"testing"
 
 	dsdns "github.com/cloudless-no/domeneshop-dns-go/dns"
 	"github.com/stretchr/testify/assert"
@@ -32,7 +32,7 @@ func Test_fetchRecords(t *testing.T) {
 	type testCase struct {
 		name  string
 		input struct {
-			domainID    string
+			domainID  string
 			dnsClient apiClient
 		}
 		expected struct {
@@ -145,7 +145,7 @@ func Test_fetchRecords(t *testing.T) {
 		{
 			name: "error fetching records",
 			input: struct {
-				domainID    string
+				domainID  string
 				dnsClient apiClient
 			}{
 				domainID: "domainIDAlpha",
@@ -181,7 +181,7 @@ func Test_fetchDomains(t *testing.T) {
 		}
 		expected struct {
 			domains []dsdns.Domain
-			err   error
+			err     error
 		}
 	}
 
@@ -247,7 +247,7 @@ func Test_fetchDomains(t *testing.T) {
 			},
 			expected: struct {
 				domains []dsdns.Domain
-				err   error
+				err     error
 			}{
 				err: errors.New("domains test error"),
 			},

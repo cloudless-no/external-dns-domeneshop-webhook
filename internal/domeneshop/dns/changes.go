@@ -44,8 +44,8 @@ func (c *domeneshopChanges) empty() bool {
 // AddChangeCreate adds a new creation entry to the current object.
 func (c *domeneshopChanges) AddChangeCreate(domainID string, options *dsdns.RecordCreateOpts) {
 	changeCreate := &domeneshopChangeCreate{
-		DomainID:  domainID,
-		Options: options,
+		DomainID: domainID,
+		Options:  options,
 	}
 	c.creates = append(c.creates, changeCreate)
 }
@@ -53,9 +53,9 @@ func (c *domeneshopChanges) AddChangeCreate(domainID string, options *dsdns.Reco
 // AddChangeUpdate adds a new update entry to the current object.
 func (c *domeneshopChanges) AddChangeUpdate(domainID string, record dsdns.Record, options *dsdns.RecordUpdateOpts) {
 	changeUpdate := &domeneshopChangeUpdate{
-		DomainID:  domainID,
-		Record:  record,
-		Options: options,
+		DomainID: domainID,
+		Record:   record,
+		Options:  options,
 	}
 	c.updates = append(c.updates, changeUpdate)
 }
@@ -64,7 +64,7 @@ func (c *domeneshopChanges) AddChangeUpdate(domainID string, record dsdns.Record
 func (c *domeneshopChanges) AddChangeDelete(domainID string, record dsdns.Record) {
 	changeDelete := &domeneshopChangeDelete{
 		DomainID: domainID,
-		Record: record,	
+		Record:   record,
 	}
 	c.deletes = append(c.deletes, changeDelete)
 }

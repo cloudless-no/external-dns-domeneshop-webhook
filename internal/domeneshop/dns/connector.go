@@ -27,7 +27,7 @@ import (
 )
 
 const (
-	actGetDomains     = "get_domains"
+	actGetDomains   = "get_domains"
 	actGetRecords   = "get_records"
 	actCreateRecord = "create_record"
 	actUpdateRecord = "update_record"

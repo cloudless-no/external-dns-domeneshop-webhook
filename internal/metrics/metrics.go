@@ -35,8 +35,8 @@ type OpenMetrics struct {
 	failedApiCallsTotal     *prometheus.CounterVec
 
 	filteredOutDomains prometheus.Gauge
-	skippedRecords   *prometheus.GaugeVec
-	apiDelayHist     *prometheus.HistogramVec
+	skippedRecords     *prometheus.GaugeVec
+	apiDelayHist       *prometheus.HistogramVec
 
 	rateLimitLimit        prometheus.Gauge
 	rateLimitRemaining    prometheus.Gauge

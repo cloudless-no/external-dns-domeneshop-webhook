@@ -112,7 +112,7 @@ func Test_Domains(t *testing.T) {
 		provider DomeneshopProvider
 		expected struct {
 			domains []dsdns.Domain
-			err   error
+			err     error
 		}
 	}
 
@@ -133,34 +133,34 @@ func Test_Domains(t *testing.T) {
 					getDomains: domainsResponse{
 						domains: []*dsdns.Domain{
 							{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 						},
 						resp: &dsdns.Response{},
 					},
 				},
-				debug:             true,
-				dryRun:            false,
-				domainFilter:      &endpoint.DomainFilter{},
+				debug:               true,
+				dryRun:              false,
+				domainFilter:        &endpoint.DomainFilter{},
 				domainCacheDuration: time.Duration(int64(3600) * int64(time.Second)),
 				domainCacheUpdate:   time.Now(),
 			},
 			expected: struct {
 				domains []dsdns.Domain
-				err   error
+				err     error
 			}{
 				domains: []dsdns.Domain{
 					{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
 					{
-						ID:   "domainIDBeta",
+						ID:     "domainIDBeta",
 						Domain: "beta.com",
 					},
 				},
@@ -173,15 +173,15 @@ func Test_Domains(t *testing.T) {
 					getDomains: domainsResponse{
 						domains: []*dsdns.Domain{
 							{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 							{
-								ID:   "domainIDGamma",
+								ID:     "domainIDGamma",
 								Domain: "gamma.com",
 							},
 						},
@@ -194,15 +194,15 @@ func Test_Domains(t *testing.T) {
 			},
 			expected: struct {
 				domains []dsdns.Domain
-				err   error
+				err     error
 			}{
 				domains: []dsdns.Domain{
 					{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
 					{
-						ID:   "domainIDGamma",
+						ID:     "domainIDGamma",
 						Domain: "gamma.com",
 					},
 				},
@@ -215,48 +215,48 @@ func Test_Domains(t *testing.T) {
 					getDomains: domainsResponse{
 						domains: []*dsdns.Domain{
 							{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 							{
-								ID:   "domainIDGamma",
+								ID:     "domainIDGamma",
 								Domain: "gamma.com",
 							},
 						},
 						resp: &dsdns.Response{},
 					},
 				},
-				debug:             true,
-				dryRun:            false,
-				domainFilter:      &endpoint.DomainFilter{},
+				debug:               true,
+				dryRun:              false,
+				domainFilter:        &endpoint.DomainFilter{},
 				domainCacheDuration: time.Duration(int64(3600) * int64(time.Second)),
 				domainCacheUpdate:   time.Now().Add(time.Duration(int64(3600) * int64(time.Second))),
 				domainCache: []dsdns.Domain{
 					{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
 					{
-						ID:   "domainIDBeta",
+						ID:     "domainIDBeta",
 						Domain: "beta.com",
 					},
 				},
 			},
 			expected: struct {
 				domains []dsdns.Domain
-				err   error
+				err     error
 			}{
 				domains: []dsdns.Domain{
 					{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
 					{
-						ID:   "domainIDBeta",
+						ID:     "domainIDBeta",
 						Domain: "beta.com",
 					},
 				},
@@ -276,7 +276,7 @@ func Test_Domains(t *testing.T) {
 			},
 			expected: struct {
 				domains []dsdns.Domain
-				err   error
+				err     error
 			}{
 				err: errors.New("test domains error"),
 			},
@@ -409,7 +409,7 @@ func Test_Records(t *testing.T) {
 					getDomains: domainsResponse{
 						domains: []*dsdns.Domain{
 							{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 						},
@@ -443,11 +443,11 @@ func Test_Records(t *testing.T) {
 					getDomains: domainsResponse{
 						domains: []*dsdns.Domain{
 							{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 						},
@@ -462,44 +462,44 @@ func Test_Records(t *testing.T) {
 								Host: "www",
 								Type: dsdns.RecordTypeA,
 								Domain: &dsdns.Domain{
-									ID:   "domainIDAlpha",
+									ID:     "domainIDAlpha",
 									Domain: "alpha.com",
 								},
 								Data: "1.1.1.1",
-								Ttl:   -1,
+								Ttl:  -1,
 							},
 							{
 								ID:   "id_2",
 								Host: "ftp",
 								Type: dsdns.RecordTypeCNAME,
 								Domain: &dsdns.Domain{
-									ID:   "domainIDAlpha",
+									ID:     "domainIDAlpha",
 									Domain: "alpha.com",
 								},
 								Data: "www",
-								Ttl:   -1,
+								Ttl:  -1,
 							},
 							{
 								ID:   "id_3",
 								Host: "www",
 								Type: dsdns.RecordTypeA,
 								Domain: &dsdns.Domain{
-									ID:   "domainIDBeta",
+									ID:     "domainIDBeta",
 									Domain: "beta.com",
 								},
 								Data: "2.2.2.2",
-								Ttl:   -1,
+								Ttl:  -1,
 							},
 							{
 								ID:   "id_4",
 								Host: "ftp",
 								Type: dsdns.RecordTypeA,
 								Domain: &dsdns.Domain{
-									ID:   "domainIDBeta",
+									ID:     "domainIDBeta",
 									Domain: "beta.com",
 								},
 								Data: "3.3.3.3",
-								Ttl:   -1,
+								Ttl:  -1,
 							},
 						},
 						resp: &dsdns.Response{
@@ -574,7 +574,7 @@ func Test_Records(t *testing.T) {
 					getDomains: domainsResponse{
 						domains: []*dsdns.Domain{
 							{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 						},
@@ -634,11 +634,11 @@ func Test_ensureDomainIDMappingPresent(t *testing.T) {
 			provider: DomeneshopProvider{},
 			input: []dsdns.Domain{
 				{
-					ID:   "domainIDAlpha",
+					ID:     "domainIDAlpha",
 					Domain: "alpha.com",
 				},
 				{
-					ID:   "domainIDBeta",
+					ID:     "domainIDBeta",
 					Domain: "beta.com",
 				},
 			},
@@ -663,7 +663,7 @@ func Test_getRecordsByDomainID(t *testing.T) {
 		provider DomeneshopProvider
 		expected struct {
 			recordsByDomainID map[string][]dsdns.Record
-			err             error
+			err               error
 		}
 	}
 
@@ -684,7 +684,7 @@ func Test_getRecordsByDomainID(t *testing.T) {
 					getDomains: domainsResponse{
 						domains: []*dsdns.Domain{
 							{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 						},
@@ -706,7 +706,7 @@ func Test_getRecordsByDomainID(t *testing.T) {
 			},
 			expected: struct {
 				recordsByDomainID map[string][]dsdns.Record
-				err             error
+				err               error
 			}{
 				recordsByDomainID: map[string][]dsdns.Record{},
 			},
@@ -718,11 +718,11 @@ func Test_getRecordsByDomainID(t *testing.T) {
 					getDomains: domainsResponse{
 						domains: []*dsdns.Domain{
 							{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 						},
@@ -737,44 +737,44 @@ func Test_getRecordsByDomainID(t *testing.T) {
 								Host: "www",
 								Type: dsdns.RecordTypeA,
 								Domain: &dsdns.Domain{
-									ID:   "domainIDAlpha",
+									ID:     "domainIDAlpha",
 									Domain: "alpha.com",
 								},
 								Data: "1.1.1.1",
-								Ttl:   -1,
+								Ttl:  -1,
 							},
 							{
 								ID:   "id_2",
 								Host: "ftp",
 								Type: dsdns.RecordTypeCNAME,
 								Domain: &dsdns.Domain{
-									ID:   "domainIDAlpha",
+									ID:     "domainIDAlpha",
 									Domain: "alpha.com",
 								},
 								Data: "www",
-								Ttl:   -1,
+								Ttl:  -1,
 							},
 							{
 								ID:   "id_3",
 								Host: "www",
 								Type: dsdns.RecordTypeA,
 								Domain: &dsdns.Domain{
-									ID:   "domainIDBeta",
+									ID:     "domainIDBeta",
 									Domain: "beta.com",
 								},
 								Data: "2.2.2.2",
-								Ttl:   -1,
+								Ttl:  -1,
 							},
 							{
 								ID:   "id_4",
 								Host: "ftp",
 								Type: dsdns.RecordTypeA,
 								Domain: &dsdns.Domain{
-									ID:   "domainIDBeta",
+									ID:     "domainIDBeta",
 									Domain: "beta.com",
 								},
 								Data: "3.3.3.3",
-								Ttl:   -1,
+								Ttl:  -1,
 							},
 						},
 						resp: &dsdns.Response{
@@ -789,7 +789,7 @@ func Test_getRecordsByDomainID(t *testing.T) {
 			},
 			expected: struct {
 				recordsByDomainID map[string][]dsdns.Record
-				err             error
+				err               error
 			}{
 				recordsByDomainID: map[string][]dsdns.Record{
 					"domainIDAlpha": {
@@ -798,22 +798,22 @@ func Test_getRecordsByDomainID(t *testing.T) {
 							Host: "www",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "1.1.1.1",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 						{
 							ID:   "id_2",
 							Host: "ftp",
 							Type: dsdns.RecordTypeCNAME,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "www",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 					"domainIDBeta": {
@@ -822,22 +822,22 @@ func Test_getRecordsByDomainID(t *testing.T) {
 							Host: "www",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 							Data: "2.2.2.2",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 						{
 							ID:   "id_4",
 							Host: "ftp",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDBeta",
+								ID:     "domainIDBeta",
 								Domain: "beta.com",
 							},
 							Data: "3.3.3.3",
-							Ttl:   -1,
+							Ttl:  -1,
 						},
 					},
 				},
@@ -857,7 +857,7 @@ func Test_getRecordsByDomainID(t *testing.T) {
 			},
 			expected: struct {
 				recordsByDomainID map[string][]dsdns.Record
-				err             error
+				err               error
 			}{
 				err: errors.New("test domains error"),
 			},
@@ -869,7 +869,7 @@ func Test_getRecordsByDomainID(t *testing.T) {
 					getDomains: domainsResponse{
 						domains: []*dsdns.Domain{
 							{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 						},
@@ -887,7 +887,7 @@ func Test_getRecordsByDomainID(t *testing.T) {
 			},
 			expected: struct {
 				recordsByDomainID map[string][]dsdns.Record
-				err             error
+				err               error
 			}{
 				err: errors.New("test records error"),
 			},

@@ -50,8 +50,8 @@ func Test_domeneshopChanges_empty(t *testing.T) {
 			changes: domeneshopChanges{
 				creates: []*domeneshopChangeCreate{
 					{
-						DomainID:  "alphaDomainID",
-						Options: &dsdns.RecordCreateOpts{},
+						DomainID: "alphaDomainID",
+						Options:  &dsdns.RecordCreateOpts{},
 					},
 				},
 			},
@@ -61,9 +61,9 @@ func Test_domeneshopChanges_empty(t *testing.T) {
 			changes: domeneshopChanges{
 				updates: []*domeneshopChangeUpdate{
 					{
-						DomainID:  "alphaDomainID",
-						Record:  dsdns.Record{},
-						Options: &dsdns.RecordUpdateOpts{},
+						DomainID: "alphaDomainID",
+						Record:   dsdns.Record{},
+						Options:  &dsdns.RecordUpdateOpts{},
 					},
 				},
 			},
@@ -74,7 +74,7 @@ func Test_domeneshopChanges_empty(t *testing.T) {
 				deletes: []*domeneshopChangeDelete{
 					{
 						DomainID: "alphaDomainID",
-						Record: dsdns.Record{},
+						Record:   dsdns.Record{},
 					},
 				},
 			},
@@ -84,21 +84,21 @@ func Test_domeneshopChanges_empty(t *testing.T) {
 			changes: domeneshopChanges{
 				creates: []*domeneshopChangeCreate{
 					{
-						DomainID:  "alphaDomainID",
-						Options: &dsdns.RecordCreateOpts{},
+						DomainID: "alphaDomainID",
+						Options:  &dsdns.RecordCreateOpts{},
 					},
 				},
 				updates: []*domeneshopChangeUpdate{
 					{
-						DomainID:  "alphaDomainID",
-						Record:  dsdns.Record{},
-						Options: &dsdns.RecordUpdateOpts{},
+						DomainID: "alphaDomainID",
+						Record:   dsdns.Record{},
+						Options:  &dsdns.RecordUpdateOpts{},
 					},
 				},
 				deletes: []*domeneshopChangeDelete{
 					{
 						DomainID: "alphaDomainID",
-						Record: dsdns.Record{},
+						Record:   dsdns.Record{},
 					},
 				},
 			},
@@ -118,8 +118,8 @@ func Test_domeneshopChanges_AddChangeCreate(t *testing.T) {
 		name     string
 		instance domeneshopChanges
 		input    struct {
-			domainID  string
-			options *dsdns.RecordCreateOpts
+			domainID string
+			options  *dsdns.RecordCreateOpts
 		}
 		expected domeneshopChanges
 	}
@@ -136,17 +136,17 @@ func Test_domeneshopChanges_AddChangeCreate(t *testing.T) {
 			name:     "add create",
 			instance: domeneshopChanges{},
 			input: struct {
-				domainID  string
-				options *dsdns.RecordCreateOpts
+				domainID string
+				options  *dsdns.RecordCreateOpts
 			}{
 				domainID: "domainIDAlpha",
 				options: &dsdns.RecordCreateOpts{
-					Host:  "www",
-					Ttl:   &testTTL,
-					Type:  "A",
+					Host: "www",
+					Ttl:  &testTTL,
+					Type: "A",
 					Data: "127.0.0.1",
 					Domain: &dsdns.Domain{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
 				},
@@ -156,12 +156,12 @@ func Test_domeneshopChanges_AddChangeCreate(t *testing.T) {
 					{
 						DomainID: "domainIDAlpha",
 						Options: &dsdns.RecordCreateOpts{
-							Host:  "www",
-							Ttl:   &testTTL,
-							Type:  "A",
+							Host: "www",
+							Ttl:  &testTTL,
+							Type: "A",
 							Data: "127.0.0.1",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 						},
@@ -184,9 +184,9 @@ func Test_domeneshopChanges_AddChangeUpdate(t *testing.T) {
 		name     string
 		instance domeneshopChanges
 		input    struct {
-			domainID  string
-			record  dsdns.Record
-			options *dsdns.RecordUpdateOpts
+			domainID string
+			record   dsdns.Record
+			options  *dsdns.RecordUpdateOpts
 		}
 		expected domeneshopChanges
 	}
@@ -203,29 +203,29 @@ func Test_domeneshopChanges_AddChangeUpdate(t *testing.T) {
 			name:     "add update",
 			instance: domeneshopChanges{},
 			input: struct {
-				domainID  string
-				record  dsdns.Record
-				options *dsdns.RecordUpdateOpts
+				domainID string
+				record   dsdns.Record
+				options  *dsdns.RecordUpdateOpts
 			}{
 				domainID: "domainIDAlpha",
 				record: dsdns.Record{
-					ID:    "id_1",
-					Host:  "www",
-					Ttl:   -1,
-					Type:  "A",
+					ID:   "id_1",
+					Host: "www",
+					Ttl:  -1,
+					Type: "A",
 					Data: "127.0.0.1",
 					Domain: &dsdns.Domain{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
 				},
 				options: &dsdns.RecordUpdateOpts{
-					Host:  "www",
-					Ttl:   &testTTL,
-					Type:  "A",
+					Host: "www",
+					Ttl:  &testTTL,
+					Type: "A",
 					Data: "127.0.0.1",
 					Domain: &dsdns.Domain{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
 				},
@@ -235,23 +235,23 @@ func Test_domeneshopChanges_AddChangeUpdate(t *testing.T) {
 					{
 						DomainID: "domainIDAlpha",
 						Record: dsdns.Record{
-							ID:    "id_1",
-							Host:  "www",
-							Ttl:   -1,
-							Type:  "A",
+							ID:   "id_1",
+							Host: "www",
+							Ttl:  -1,
+							Type: "A",
 							Data: "127.0.0.1",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 						},
 						Options: &dsdns.RecordUpdateOpts{
-							Host:  "www",
-							Ttl:   &testTTL,
-							Type:  "A",
+							Host: "www",
+							Ttl:  &testTTL,
+							Type: "A",
 							Data: "127.0.0.1",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 						},
@@ -275,7 +275,7 @@ func Test_domeneshopChanges_AddChangeDelete(t *testing.T) {
 		instance domeneshopChanges
 		input    struct {
 			domainID string
-			record dsdns.Record
+			record   dsdns.Record
 		}
 		expected domeneshopChanges
 	}
@@ -293,17 +293,17 @@ func Test_domeneshopChanges_AddChangeDelete(t *testing.T) {
 			instance: domeneshopChanges{},
 			input: struct {
 				domainID string
-				record dsdns.Record
+				record   dsdns.Record
 			}{
 				domainID: "domainIDAlpha",
 				record: dsdns.Record{
-					ID:    "id_1",
-					Host:  "www",
-					Ttl:   -1,
-					Type:  "A",
+					ID:   "id_1",
+					Host: "www",
+					Ttl:  -1,
+					Type: "A",
 					Data: "127.0.0.1",
 					Domain: &dsdns.Domain{
-						ID:   "domainIDAlpha",
+						ID:     "domainIDAlpha",
 						Domain: "alpha.com",
 					},
 				},
@@ -313,13 +313,13 @@ func Test_domeneshopChanges_AddChangeDelete(t *testing.T) {
 					{
 						DomainID: "domainIDAlpha",
 						Record: dsdns.Record{
-							ID:    "id_1",
-							Host:  "www",
-							Ttl:   -1,
-							Type:  "A",
+							ID:   "id_1",
+							Host: "www",
+							Ttl:  -1,
+							Type: "A",
 							Data: "127.0.0.1",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 						},
@@ -364,12 +364,12 @@ func Test_domeneshopChanges_applyDeletes(t *testing.T) {
 					{
 						DomainID: "domainIDAlpha",
 						Record: dsdns.Record{
-							ID:    "id1",
-							Type:  dsdns.RecordTypeA,
-							Host:  "www",
+							ID:   "id1",
+							Type: dsdns.RecordTypeA,
+							Host: "www",
 							Data: "1.1.1.1",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Ttl: -1,
@@ -392,12 +392,12 @@ func Test_domeneshopChanges_applyDeletes(t *testing.T) {
 					{
 						DomainID: "domainIDAlpha",
 						Record: dsdns.Record{
-							ID:    "id1",
-							Type:  dsdns.RecordTypeA,
-							Host:  "www",
+							ID:   "id1",
+							Type: dsdns.RecordTypeA,
+							Host: "www",
 							Data: "1.1.1.1",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Ttl: -1,
@@ -425,12 +425,12 @@ func Test_domeneshopChanges_applyDeletes(t *testing.T) {
 					{
 						DomainID: "domainIDAlpha",
 						Record: dsdns.Record{
-							ID:    "id1",
-							Type:  dsdns.RecordTypeA,
-							Host:  "www",
+							ID:   "id1",
+							Type: dsdns.RecordTypeA,
+							Host: "www",
 							Data: "1.1.1.1",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Ttl: -1,
@@ -487,11 +487,11 @@ func Test_domeneshopChanges_applyCreates(t *testing.T) {
 							Host: "www",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "127.0.0.1",
-							Ttl:   &testTTL,
+							Ttl:  &testTTL,
 						},
 					},
 				},
@@ -514,11 +514,11 @@ func Test_domeneshopChanges_applyCreates(t *testing.T) {
 							Host: "www",
 							Type: dsdns.RecordTypeA,
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Data: "127.0.0.1",
-							Ttl:   &testTTL,
+							Ttl:  &testTTL,
 						},
 					},
 				},
@@ -550,12 +550,12 @@ func Test_domeneshopChanges_applyCreates(t *testing.T) {
 						Options: &dsdns.RecordCreateOpts{
 							Host: "www",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Type:  "A",
+							Type: "A",
 							Data: "127.0.0.1",
-							Ttl:   &testTTL,
+							Ttl:  &testTTL,
 						},
 					},
 				},
@@ -607,23 +607,23 @@ func Test_domeneshopChanges_applyUpdates(t *testing.T) {
 						DomainID: "domainIDAlpha",
 						Record: dsdns.Record{
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Host:  "www",
-							Type:  "A",
+							Host: "www",
+							Type: "A",
 							Data: "127.0.0.1",
-							Ttl:   testTTL,
+							Ttl:  testTTL,
 						},
 						Options: &dsdns.RecordUpdateOpts{
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Host:  "ftp",
-							Type:  "A",
+							Host: "ftp",
+							Type: "A",
 							Data: "127.0.0.1",
-							Ttl:   &testTTL,
+							Ttl:  &testTTL,
 						},
 					},
 				},
@@ -648,23 +648,23 @@ func Test_domeneshopChanges_applyUpdates(t *testing.T) {
 						DomainID: "domainIDAlpha",
 						Record: dsdns.Record{
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Host:  "www",
-							Type:  "A",
+							Host: "www",
+							Type: "A",
 							Data: "127.0.0.1",
-							Ttl:   testTTL,
+							Ttl:  testTTL,
 						},
 						Options: &dsdns.RecordUpdateOpts{
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Host:  "ftp",
-							Type:  "A",
+							Host: "ftp",
+							Type: "A",
 							Data: "127.0.0.1",
-							Ttl:   &testTTL,
+							Ttl:  &testTTL,
 						},
 					},
 				},
@@ -686,23 +686,23 @@ func Test_domeneshopChanges_applyUpdates(t *testing.T) {
 						DomainID: "domainIDAlpha",
 						Record: dsdns.Record{
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Host:  "www",
-							Type:  "A",
+							Host: "www",
+							Type: "A",
 							Data: "127.0.0.1",
-							Ttl:   testTTL,
+							Ttl:  testTTL,
 						},
 						Options: &dsdns.RecordUpdateOpts{
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Host:  "ftp",
-							Type:  "A",
+							Host: "ftp",
+							Type: "A",
 							Data: "127.0.0.1",
-							Ttl:   &testTTL,
+							Ttl:  &testTTL,
 						},
 					},
 				},
@@ -763,12 +763,12 @@ func Test_domeneshopChanges_ApplyChanges(t *testing.T) {
 					{
 						DomainID: "domainIDAlpha",
 						Record: dsdns.Record{
-							ID:    "id1",
-							Type:  dsdns.RecordTypeA,
-							Host:  "www",
+							ID:   "id1",
+							Type: dsdns.RecordTypeA,
+							Host: "www",
 							Data: "1.1.1.1",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Ttl: -1,
@@ -781,12 +781,12 @@ func Test_domeneshopChanges_ApplyChanges(t *testing.T) {
 						Options: &dsdns.RecordCreateOpts{
 							Host: "www",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Type:  "A",
+							Type: "A",
 							Data: "127.0.0.1",
-							Ttl:   &testTTL,
+							Ttl:  &testTTL,
 						},
 					},
 				},
@@ -795,23 +795,23 @@ func Test_domeneshopChanges_ApplyChanges(t *testing.T) {
 						DomainID: "domainIDAlpha",
 						Record: dsdns.Record{
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Host:  "www",
-							Type:  "A",
+							Host: "www",
+							Type: "A",
 							Data: "127.0.0.1",
-							Ttl:   testTTL,
+							Ttl:  testTTL,
 						},
 						Options: &dsdns.RecordUpdateOpts{
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Host:  "ftp",
-							Type:  "A",
+							Host: "ftp",
+							Type: "A",
 							Data: "127.0.0.1",
-							Ttl:   &testTTL,
+							Ttl:  &testTTL,
 						},
 					},
 				},
@@ -835,12 +835,12 @@ func Test_domeneshopChanges_ApplyChanges(t *testing.T) {
 					{
 						DomainID: "domainIDAlpha",
 						Record: dsdns.Record{
-							ID:    "id1",
-							Type:  dsdns.RecordTypeA,
-							Host:  "www",
+							ID:   "id1",
+							Type: dsdns.RecordTypeA,
+							Host: "www",
 							Data: "1.1.1.1",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
 							Ttl: -1,
@@ -872,12 +872,12 @@ func Test_domeneshopChanges_ApplyChanges(t *testing.T) {
 						Options: &dsdns.RecordCreateOpts{
 							Host: "www",
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Type:  "A",
+							Type: "A",
 							Data: "127.0.0.1",
-							Ttl:   &testTTL,
+							Ttl:  &testTTL,
 						},
 					},
 				},
@@ -910,23 +910,23 @@ func Test_domeneshopChanges_ApplyChanges(t *testing.T) {
 						DomainID: "domainIDAlpha",
 						Record: dsdns.Record{
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Host:  "www",
-							Type:  "A",
+							Host: "www",
+							Type: "A",
 							Data: "127.0.0.1",
-							Ttl:   testTTL,
+							Ttl:  testTTL,
 						},
 						Options: &dsdns.RecordUpdateOpts{
 							Domain: &dsdns.Domain{
-								ID:   "domainIDAlpha",
+								ID:     "domainIDAlpha",
 								Domain: "alpha.com",
 							},
-							Host:  "ftp",
-							Type:  "A",
+							Host: "ftp",
+							Type: "A",
 							Data: "127.0.0.1",
-							Ttl:   &testTTL,
+							Ttl:  &testTTL,
 						},
 					},
 				},

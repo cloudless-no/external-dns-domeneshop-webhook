@@ -61,8 +61,8 @@ func Test_createProvider(t *testing.T) {
 
 	testCases := []testCase{
 		{
-			name: "domeneshopdns implementation",
-			config: &domeneshop.Configuration{},
+			name:         "domeneshopdns implementation",
+			config:       &domeneshop.Configuration{},
 			expectedType: &domeneshopdns.DomeneshopProvider{},
 		},
 	}
