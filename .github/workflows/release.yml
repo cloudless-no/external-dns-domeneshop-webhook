@@ -8,11 +8,7 @@ on:
 jobs:
   release:
     runs-on: ubuntu-24.04
-    permissions:
-      contents: read
-      packages: write
-      attestations: write
-      id-token: write
+    permissions: write-all
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
