@@ -1,0 +1,10 @@
+# Build directories
+build/
+token
+.idea/
+.vscode/
+coverage.out
+reports/
+cosign.key
+dist/
+tools/
