@@ -1,0 +1,130 @@
+/*
+ * Configuration - unit tests
+ *
+ * Copyright 2026 Marco Confalonieri.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package domeneshop
+
+import (
+	"regexp"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"sigs.k8s.io/external-dns/endpoint"
+)
+
+// assertEqualDomainFilter checks that the domain filters have the same information.
+func assertEqualDomainFilter(t *testing.T, expected, actual *endpoint.DomainFilter) {
+	actualJSON, _ := actual.MarshalJSON()
+	expectedJSON, _ := expected.MarshalJSON()
+	assert.Equal(t, expectedJSON, actualJSON)
+}
+
+// Test_GetDomainFilter tests that the domain filter is correctly set for all
+// cases.
+func Test_GetDomainFilter(t *testing.T) {
+	t.Setenv("DOMENESHOP_token", "test-token")
+	t.Setenv("DOMENESHOP_secret", "test-secret")
+	type testCase struct {
+		name     string
+		config   Configuration
+		expected *endpoint.DomainFilter
+	}
+
+	run := func(t *testing.T, tc testCase) {
+		actual := GetDomainFilter(tc.config)
+		assertEqualDomainFilter(t, tc.expected, actual)
+	}
+
+	testCases := []testCase{
+		{
+			name:     "No domain filters",
+			config:   Configuration{},
+			expected: &endpoint.DomainFilter{},
+		},
+		{
+			name: "Simple domain filter",
+			config: Configuration{
+				DomainFilter: []string{"example.com"},
+			},
+			expected: endpoint.NewDomainFilter([]string{"example.com"}),
+		},
+		{
+			name: "Exclusion domain filter",
+			config: Configuration{
+				ExcludeDomains: []string{"example.com"},
+			},
+			expected: endpoint.NewDomainFilterWithExclusions(nil, []string{"example.com"}),
+		},
+		{
+			name: "Both domain filters",
+			config: Configuration{
+				DomainFilter:   []string{"example-included.com"},
+				ExcludeDomains: []string{"example-excluded.com"},
+			},
+			expected: endpoint.NewDomainFilterWithExclusions(
+				[]string{"example-included.com"},
+				[]string{"example-excluded.com"},
+			),
+		},
+		{
+			name: "Regular expression domain filters",
+			config: Configuration{
+				RegexDomainFilter:    `example-[a-z]+\.com`,
+				RegexDomainExclusion: `[a-z]+-excluded\.com`,
+			},
+			expected: endpoint.NewRegexDomainFilter(
+				regexp.MustCompile(`example-[a-z]+\.com`),
+				regexp.MustCompile(`[a-z]+-excluded\.com`),
+			),
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			run(t, tc)
+		})
+	}
+}
+
+// Test_IsSupportedRecordType tests that the supported record types are correctly
+// identified, including MX which is not supported by the external-dns SDK.
+func Test_IsSupportedRecordType(t *testing.T) {
+	type testCase struct {
+		recordType string
+		expected   bool
+	}
+
+	testCases := []testCase{
+		{recordType: "A", expected: true},
+		{recordType: "AAAA", expected: true},
+		{recordType: "CNAME", expected: true},
+		{recordType: "TXT", expected: true},
+		{recordType: "MX", expected: true}, // MX is supported by this webhook
+		{recordType: "NS", expected: false}, // NS is not supported by this webhook
+		{recordType: "SRV", expected: true},
+		{recordType: "PTR", expected: false},
+		{recordType: "CAA", expected: false},
+		{recordType: "SOA", expected: false},
+		{recordType: "", expected: false},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.recordType, func(t *testing.T) {
+			actual := IsSupportedRecordType(tc.recordType)
+			assert.Equal(t, tc.expected, actual)
+		})
+	}
+}
