@@ -1,7 +1,7 @@
 /*
  * Changes - Code for storing changes and sending them to the DNS API.
  *
- * Copyright 2026 Marco Confalonieri.
+ * Copyright 2026 Marco Confalonieri & Kim Engebretsen.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

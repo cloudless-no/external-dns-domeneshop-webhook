@@ -2,7 +2,7 @@
  * Change processors - this file contains the code for processing changes and
  * queue them.
  *
- * Copyright 2026 Marco Confalonieri.
+ * Copyright 2026 Marco Confalonieri & Kim Engebretsen.
  * Copyright 2017 The Kubernetes Authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
