@@ -17,7 +17,7 @@ endif
 ARTIFACT_NAME = external-dns-domeneshop-webhook
 
 
-REGISTRY ?= docker.io/mconfalonieri
+REGISTRY ?= ghcr.io/cloudless-no
 IMAGE_NAME ?= external-dns-domeneshop-webhook
 IMAGE_TAG ?= localbuild
 IMAGE = $(REGISTRY)/$(IMAGE_NAME):$(IMAGE_TAG)
@@ -124,7 +124,7 @@ unit-test: ## Run unit tests
 .PHONY: release-check
 release-check: ## Check if the release will work
 	GITHUB_SERVER_URL=github.com \
-	GITHUB_REPOSITORY=mconfalonieri/external-dns-domeneshop-webhook \
+	GITHUB_REPOSITORY=cloudless-no/external-dns-domeneshop-webhook \
 	REGISTRY=$(REGISTRY) \
 	IMAGE_NAME=$(IMAGE_NAME) \
 	  goreleaser release --snapshot --clean --skip=publish

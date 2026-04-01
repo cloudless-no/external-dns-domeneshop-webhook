@@ -48,7 +48,7 @@ variable is set to `true`).
 
 The Domeneshop webhook is provided as a regular Open Container Initiative (OCI)
 image released in the
-[GitHub container registry](https://github.com/mconfalonieri/external-dns-domeneshop-webhook/pkgs/container/external-dns-domeneshop-webhook).
+[GitHub container registry](https://github.com/cloudless-no/external-dns-domeneshop-webhook/pkgs/container/external-dns-domeneshop-webhook).
 The deployment can be performed in every way Kubernetes supports.
 
 Here are provided examples using the
@@ -85,7 +85,7 @@ provider:
   name: webhook
   webhook:
     image:
-      repository: ghcr.io/mconfalonieri/external-dns-domeneshop-webhook
+      repository: ghcr.io/cloudless-no/external-dns-domeneshop-webhook
       tag: v0.12.0
     env:
       - name: HETZNER_API_KEY
@@ -146,7 +146,7 @@ extraArgs:
 
 sidecars:
   - name: domeneshop-webhook
-    image: ghcr.io/mconfalonieri/external-dns-domeneshop-webhook:v0.12.0
+    image: ghcr.io/cloudless-no/external-dns-domeneshop-webhook:v0.12.0
     ports:
       - containerPort: 8888
         name: webhook
