@@ -144,18 +144,16 @@ func createEndpointFromRecord(r dsdns.Record) *endpoint.Endpoint {
 	case dsdns.RecordTypeCNAME:
 		target = fromDomeneshopHostname(domainName, target)
 	case dsdns.RecordTypeMX:
-		// MX records in Domeneshop: "10 mail" (local) or "10 mail.beta.com." (external)
-		// Convert to ExternalDNS format: "10 mail.domain.com" (FQDN without trailing dot)
-		parts := strings.SplitN(target, " ", 2)
-		if len(parts) == 2 {
-			priority := parts[0]
-			host := fromDomeneshopHostname(domainName, parts[1])
-			target = priority + " " + host
+		// MX records in Domeneshop: Data contains only the hostname; Priority is a separate field.
+		// Convert to ExternalDNS format: "10 mail.domain.com" (priority + FQDN without trailing dot)
+		if r.Priority != nil {
+			host := fromDomeneshopHostname(domainName, target)
+			target = fmt.Sprintf("%d %s", *r.Priority, host)
 		} else {
 			log.WithFields(log.Fields{
 				"domain": domainName,
 				"target": target,
-			}).Warn("MX record from Domeneshop API has unexpected format (expected 'priority hostname')")
+			}).Warn("MX record from Domeneshop API has no priority field")
 		}
 	}
 	ep := endpoint.NewEndpoint(name, string(r.Type), target)
