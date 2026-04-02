@@ -29,7 +29,7 @@ Here are provided examples using the
 In either case, a secret that stores the Domeneshop API key is required:
 
 ```yaml
-kubectl create secret generic domeneshop-credentials --from-literal=api-key='<EXAMPLE_PLEASE_REPLACE>' -n external-dns
+kubectl create secret generic domeneshop-credentials --from-literal=token='<EXAMPLE_PLEASE_REPLACE>' --from-literal=secret='<EXAMPLE_PLEASE_REPLACE>' -n external-dns
 ```
 
 ### Using the ExternalDNS chart
