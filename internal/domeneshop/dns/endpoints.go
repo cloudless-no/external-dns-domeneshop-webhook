@@ -148,7 +148,7 @@ func createEndpointFromRecord(r dsdns.Record) *endpoint.Endpoint {
 		// Convert to ExternalDNS format: "10 mail.domain.com" (priority + FQDN without trailing dot)
 		if r.Priority != nil {
 			host := fromDomeneshopHostname(domainName, target)
-			target = fmt.Sprintf("%d %s", *r.Priority, host)
+			target = *r.Priority + " " + host
 		} else {
 			log.WithFields(log.Fields{
 				"domain": domainName,
