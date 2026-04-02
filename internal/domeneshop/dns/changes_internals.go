@@ -30,13 +30,17 @@ type domeneshopChangeCreate struct {
 
 // GetLogFields returns the log fields for this object.
 func (cc domeneshopChangeCreate) GetLogFields() log.Fields {
+	var ttl interface{}
+	if cc.Options.Ttl != nil {
+		ttl = *cc.Options.Ttl
+	}
 	return log.Fields{
 		"domain":     cc.Options.Domain.Domain,
 		"domainID":   cc.DomainID,
 		"dnsName":    cc.Options.Host,
 		"recordType": string(cc.Options.Type),
 		"value":      cc.Options.Data,
-		"ttl":        *cc.Options.Ttl,
+		"ttl":        ttl,
 	}
 }
 
@@ -50,6 +54,10 @@ type domeneshopChangeUpdate struct {
 // GetLogFields returns the log fields for this object. An asterisk indicate
 // that the new value is shown.
 func (cu domeneshopChangeUpdate) GetLogFields() log.Fields {
+	var ttl interface{}
+	if cu.Options.Ttl != nil {
+		ttl = *cu.Options.Ttl
+	}
 	return log.Fields{
 		"domain":      cu.Record.Domain.Domain,
 		"domainID":    cu.DomainID,
@@ -57,7 +65,7 @@ func (cu domeneshopChangeUpdate) GetLogFields() log.Fields {
 		"*dnsName":    cu.Options.Host,
 		"*recordType": string(cu.Options.Type),
 		"*value":      cu.Options.Data,
-		"*ttl":        *cu.Options.Ttl,
+		"*ttl":        ttl,
 	}
 }
 
