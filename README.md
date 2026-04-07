@@ -29,7 +29,7 @@ Here are provided examples using the
 In either case, a secret that stores the Domeneshop API key is required:
 
 ```yaml
-kubectl create secret generic domeneshop-credentials --from-literal=token='<EXAMPLE_PLEASE_REPLACE>' --from-literal=secret='<EXAMPLE_PLEASE_REPLACE>' -n external-dns
+kubectl create secret generic domeneshop-credentials --from-literal=APIToken='<EXAMPLE_PLEASE_REPLACE>' --from-literal=APISecret='<EXAMPLE_PLEASE_REPLACE>' -n external-dns
 ```
 
 ### Using the ExternalDNS chart
@@ -63,12 +63,12 @@ provider:
         valueFrom:
           secretKeyRef:
             name: domeneshop-credentials
-            key: token
+            key: APIToken
       - name: DOMENESHOP_SECRET
         valueFrom:
           secretKeyRef:
             name: domeneshop-credentials
-            key: secret   
+            key: APISecret   
     livenessProbe:
       httpGet:
         path: /health
@@ -145,12 +145,12 @@ sidecars:
         valueFrom:
           secretKeyRef:
             name: domeneshop-credentials
-            key: token
+            key: APIToken
       - name: DOMENESHOP_SECRET
         valueFrom:
           secretKeyRef:
             name: domeneshop-credentials
-            key: secret
+            key: APISecret
 ```
 
 And then:
@@ -212,12 +212,12 @@ Domeneshop DNS API.
         valueFrom:
           secretKeyRef:
             name: domeneshop-credentials
-            key: token
+            key: APIToken
       - name: DOMENESHOP_SECRET
         valueFrom:
           secretKeyRef:
             name: domeneshop-credentials
-            key: secret  
+            key: APISecret  
 
 | Variable        | Description                            | Notes                      |
 | --------------- | -------------------------------------- | -------------------------- |
