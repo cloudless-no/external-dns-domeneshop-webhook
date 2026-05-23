@@ -122,8 +122,12 @@ func (c domeneshopChanges) applyUpdates(ctx context.Context, dnsClient apiClient
 		opt := e.Options
 
 		log.WithFields(e.GetLogFields()).Debug("Updating domain record")
+		var ttl int
+		if opt.Ttl != nil {
+			ttl = *opt.Ttl
+		}
 		log.Infof("Updating record ID [%s] with name [%s], type [%s], value [%s] and TTL [%d] in domain [%s]",
-			e.Record.ID, opt.Host, opt.Type, opt.Data, *opt.Ttl, opt.Domain.Domain)
+			e.Record.ID, opt.Host, opt.Type, opt.Data, ttl, opt.Domain.Domain)
 		if c.dryRun {
 			continue
 		}

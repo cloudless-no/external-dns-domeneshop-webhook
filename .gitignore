@@ -2,9 +2,11 @@
 build/
 token
 .idea/
+.claude
 .vscode/
 coverage.out
 reports/
 cosign.key
 dist/
 tools/
+.DS_Store
