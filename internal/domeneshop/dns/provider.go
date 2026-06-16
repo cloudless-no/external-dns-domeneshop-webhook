@@ -24,6 +24,7 @@ package domeneshopdns
 import (
 	"context"
 	"fmt"
+	"strings"
 	"time"
 
 	"external-dns-domeneshop-webhook/internal/domeneshop"
@@ -101,6 +102,22 @@ func NewDomeneshopProvider(config *domeneshop.Configuration) (*DomeneshopProvide
 	}, nil
 }
 
+// domainMatchesFilter returns true if the zone domain matches the filter directly,
+// or if the zone is a parent zone of any filter domain (e.g. filter="sfj.cl.fo", zone="cl.fo").
+// This handles the common case where the filter targets a subdomain that lives inside a
+// Domeneshop zone, rather than being a zone itself.
+func (p *DomeneshopProvider) domainMatchesFilter(zoneDomain string) bool {
+	if p.domainFilter.Match(zoneDomain) {
+		return true
+	}
+	for _, filter := range p.domainFilter.Filters {
+		if strings.HasSuffix(filter, "."+zoneDomain) {
+			return true
+		}
+	}
+	return false
+}
+
 // incFailCount increments the fail count and exit if necessary.
 func (p *DomeneshopProvider) incFailCount() {
 	if p.maxFailCount <= 0 {
@@ -139,7 +156,7 @@ func (p *DomeneshopProvider) Domains(ctx context.Context) ([]dsdns.Domain, error
 
 	filteredOutDomains := 0
 	for _, domain := range domains {
-		if p.domainFilter.Match(domain.Domain) {
+		if p.domainMatchesFilter(domain.Domain) {
 			result = append(result, domain)
 		} else {
 			filteredOutDomains++
