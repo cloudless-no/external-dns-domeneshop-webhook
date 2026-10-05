@@ -30,13 +30,27 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// adjustCNAMETarget fixes local CNAME targets. It ensures that targets
-// matching the domain are stripped of the domain parts and that "external"
-// targets end with a dot.
+// adjustCNAMETarget returns the CNAME target as a fully qualified name with a
+// trailing dot, whether or not it lies inside the domain.
+//
+// The DNS console accepts domain-relative targets, but the API does not: it
+// answers 400 "record:invalid" to "gw.cluster" in cl.fo, accepts
+// "gw.cluster.cl.fo" with or without the dot, and stores and returns it with
+// the dot. Emitting the stored form also lets targetsMatch find the record
+// again on update and delete.
+func adjustCNAMETarget(target string) string {
+	if strings.HasSuffix(target, ".") {
+		return target
+	}
+	return target + "."
+}
+
+// adjustLocalHostname strips the domain from hostnames inside it and ends
+// "external" hostnames with a dot.
 //
 // Domeneshop DNS convention: local hostnames have NO trailing dot, external DO.
 // See: https://docs.domeneshop.com/dns-console/dns/record-types/mx-record/
-func adjustCNAMETarget(domain string, target string) string {
+func adjustLocalHostname(domain string, target string) string {
 	adjustedTarget := target
 	if strings.HasSuffix(target, "."+domain) {
 		adjustedTarget = strings.TrimSuffix(target, "."+domain)
@@ -77,15 +91,14 @@ func adjustMXTarget(domain string, target string) string {
 		return priority + " @"
 	}
 
-	// Use existing CNAME logic for hostname
-	return priority + " " + adjustCNAMETarget(domain, host)
+	return priority + " " + adjustLocalHostname(domain, host)
 }
 
 // adjustTarget adjusts the target depending on its type
 func adjustTarget(domain, recordType, target string) string {
 	switch recordType {
 	case "CNAME":
-		target = adjustCNAMETarget(domain, target)
+		target = adjustCNAMETarget(target)
 	case "MX":
 		target = adjustMXTarget(domain, target)
 	}

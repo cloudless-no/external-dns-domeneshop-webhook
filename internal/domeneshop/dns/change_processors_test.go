@@ -52,7 +52,7 @@ func Test_adjustCNAMETarget(t *testing.T) {
 
 	run := func(t *testing.T, tc testCase) {
 		inp := tc.input
-		actual := adjustCNAMETarget(inp.domain, inp.target)
+		actual := adjustCNAMETarget(inp.target)
 		assert.Equal(t, tc.expected, actual)
 	}
 
@@ -66,7 +66,7 @@ func Test_adjustCNAMETarget(t *testing.T) {
 				domain: "alpha.com",
 				target: "www.alpha.com",
 			},
-			expected: "www",
+			expected: "www.alpha.com.",
 		},
 		{
 			name: "target matches domain with dot",
@@ -77,7 +77,19 @@ func Test_adjustCNAMETarget(t *testing.T) {
 				domain: "alpha.com",
 				target: "www.alpha.com.",
 			},
-			expected: "www",
+			expected: "www.alpha.com.",
+		},
+		{
+			// The API answers 400 record:invalid to the relative form "gw.cluster".
+			name: "multi-label target inside the domain",
+			input: struct {
+				domain string
+				target string
+			}{
+				domain: "cl.fo",
+				target: "gw.cluster.cl.fo",
+			},
+			expected: "gw.cluster.cl.fo.",
 		},
 		{
 			name: "target without dot does not match domain",
@@ -276,7 +288,7 @@ func Test_adjustTarget(t *testing.T) {
 				recordType: "CNAME",
 				target:     "www.alpha.com",
 			},
-			expected: "www",
+			expected: "www.alpha.com.",
 		},
 		{
 			name: "mx target",
